@@ -26,7 +26,7 @@ import dev.alejo.compose_calendar.ui.DarkerWhite
 import java.time.LocalDate
 
 @Composable
-fun Day(day: Any, month: Int, year: Int, events: List<CalendarEvent>) {
+fun CalendarDay(day: Any, month: Int, year: Int, events: List<CalendarEvent>) {
     val date = if (day is Int) LocalDate.of(year, month, day) else null
     val eventForThisDay = date?.let {
         events.find { it.date == date }
@@ -79,5 +79,5 @@ fun DayPreview() {
     val day = LocalDate.now().dayOfMonth
     val month = LocalDate.now().monthValue
     val year = LocalDate.now().year
-    Day(day = day, month = month, year = year, events = events)
+    CalendarDay(day = day, month = month, year = year, events = events)
 }
