@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -21,10 +22,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.alejo.compose_calendar.ui.AppDimens
 import dev.alejo.compose_calendar.ui.DarkerWhite
+import java.time.LocalDate
+import java.time.format.TextStyle
+import java.util.Locale
 
 @Composable
-fun Header(
-    text: String,
+fun CalendarHeader(
+    currentYear: Int,
+    currentMonth: Int,
     onPreviousMonthClick: () -> Unit,
     onNextMonthClick: () -> Unit
 ) {
@@ -33,24 +38,27 @@ fun Header(
         modifier = Modifier
             .fillMaxWidth()
             .background(DarkerWhite, RoundedCornerShape(AppDimens.Default))
-            .padding(16.dp),
+            .padding(vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(AppDimens.Default)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = AppDimens.Default),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(AppDimens.Default)
+            horizontalArrangement = Arrangement.spacedBy(AppDimens.Small)
         ) {
             Text(
                 modifier = Modifier.weight(1f),
-                text = text,
+                text = LocalDate.of(currentYear, currentMonth, 1)
+                    .month
+                    .getDisplayName(TextStyle.FULL, Locale.getDefault()) + " " + currentYear,
                 style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
             )
             NavigationButton(
                 onClick = {
                     onPreviousMonthClick()
                 },
-                icon = Icons.AutoMirrored.Filled.ArrowBackIos
+                icon = Icons.AutoMirrored.Filled.ArrowBackIos,
+                modifier = Modifier.offset(x = AppDimens.XSmall)
             )
             NavigationButton(
                 onClick = {
@@ -61,9 +69,8 @@ fun Header(
         }
         Row(
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(horizontal = AppDimens.Small),
-            horizontalArrangement = Arrangement.SpaceBetween
+                .fillMaxWidth().padding(horizontal = AppDimens.Small),
+            horizontalArrangement = Arrangement.spacedBy(AppDimens.Small)
         ) {
             dayNames.forEach { dayName ->
                 Text(
@@ -80,8 +87,9 @@ fun Header(
 @Preview(showBackground = true)
 @Composable
 fun HeaderPreview() {
-    Header(
-        text = "January 2023",
+    CalendarHeader(
+        currentYear = LocalDate.now().year,
+        currentMonth = LocalDate.now().monthValue,
         onPreviousMonthClick = {},
         onNextMonthClick = {}
     )
