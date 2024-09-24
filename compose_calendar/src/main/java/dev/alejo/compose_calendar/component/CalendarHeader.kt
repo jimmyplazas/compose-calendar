@@ -16,12 +16,15 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.alejo.compose_calendar.ui.AppDimens
+import dev.alejo.compose_calendar.ui.Blue10
 import dev.alejo.compose_calendar.ui.DarkerWhite
+import dev.alejo.compose_calendar.util.CalendarColors
 import java.time.LocalDate
 import java.time.format.TextStyle
 import java.util.Locale
@@ -30,6 +33,7 @@ import java.util.Locale
 fun CalendarHeader(
     currentYear: Int,
     currentMonth: Int,
+    calendarColors: CalendarColors,
     onPreviousMonthClick: () -> Unit,
     onNextMonthClick: () -> Unit
 ) {
@@ -37,7 +41,7 @@ fun CalendarHeader(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(DarkerWhite, RoundedCornerShape(AppDimens.Default))
+            .background(calendarColors.headerBackgroundColor, RoundedCornerShape(AppDimens.Default))
             .padding(vertical = 16.dp),
         verticalArrangement = Arrangement.spacedBy(AppDimens.Default)
     ) {
@@ -51,20 +55,26 @@ fun CalendarHeader(
                 text = LocalDate.of(currentYear, currentMonth, 1)
                     .month
                     .getDisplayName(TextStyle.FULL, Locale.getDefault()) + " " + currentYear,
-                style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold)
+                style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
+                color = calendarColors.headerContentColor
             )
             NavigationButton(
                 onClick = {
                     onPreviousMonthClick()
                 },
                 icon = Icons.AutoMirrored.Filled.ArrowBackIos,
-                modifier = Modifier.offset(x = AppDimens.XSmall)
+                modifier = Modifier
+                    .offset(x = AppDimens.XSmall),
+                backgroundColor = calendarColors.navigationBackgroundColor,
+                tintColor = calendarColors.navigationContentColor
             )
             NavigationButton(
                 onClick = {
                     onNextMonthClick()
                 },
-                icon = Icons.AutoMirrored.Filled.ArrowForwardIos
+                icon = Icons.AutoMirrored.Filled.ArrowForwardIos,
+                backgroundColor = calendarColors.navigationBackgroundColor,
+                tintColor = calendarColors.navigationContentColor
             )
         }
         Row(
@@ -76,7 +86,8 @@ fun CalendarHeader(
                     text = dayName,
                     modifier = Modifier.weight(1f),
                     textAlign = TextAlign.Center,
-                    fontWeight = FontWeight.Bold
+                    fontWeight = FontWeight.Bold,
+                    color = calendarColors.headerContentColor
                 )
             }
         }
@@ -90,6 +101,14 @@ fun HeaderPreview() {
         currentYear = LocalDate.now().year,
         currentMonth = LocalDate.now().monthValue,
         onPreviousMonthClick = {},
-        onNextMonthClick = {}
+        onNextMonthClick = {},
+        calendarColors = CalendarColors(
+            backgroundColor = DarkerWhite,
+            contentColor = DarkerWhite,
+            headerBackgroundColor = DarkerWhite,
+            headerContentColor = Color.Black,
+            navigationBackgroundColor = Blue10,
+            navigationContentColor = Color.Black
+        )
     )
 }
