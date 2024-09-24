@@ -14,8 +14,9 @@ import java.time.LocalDate
 
 @Composable
 fun CalendarBody(date: LocalDate) {
-    val daysInMonth = date.lengthOfMonth()
-    val startDayOfWeek = (date.dayOfWeek.value - 1 ) % 7
+    val startDay = date.withDayOfMonth(1)
+    val daysInMonth = startDay.lengthOfMonth()
+    val startDayOfWeek = (startDay.dayOfWeek.value - 1 ) % 7
 
     // List of days including leading empty days
     val days = List(startDayOfWeek) { "" } + List(daysInMonth) { it + 1 }
