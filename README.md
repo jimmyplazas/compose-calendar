@@ -13,6 +13,8 @@ Made with ❤️ by <a target="_blank" href="https://jimmyplazas.dev">Jimmy Plaz
 
 ## Getting Started
 
+Before to start, it is important you to know that this library works with `minSdk = 26`.
+
 To integrate the Compose Calendar library into your Android app, follow the next steps:
 
 1. Add your MavenCentral and Jitpack to you `settings.gradle.kts` file
