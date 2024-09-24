@@ -11,6 +11,8 @@ composeBom = "2024.09.02"
 appcompat = "1.7.0"
 material = "1.12.0"
 materialIcons = "1.7.2"
+# Compose Calendar version
+composeCalendar = "1.0.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -30,6 +32,8 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 androidx-appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 material-icons = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIcons" }
+# Compose Calendar Library
+compose-calendar = { module = "com.github.jimmyale3102:compose-calendar", version.ref = "composeCalendar" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
