@@ -21,10 +21,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import dev.alejo.compose_calendar.ui.AppDimens
 import dev.alejo.compose_calendar.ui.Blue10
 import dev.alejo.compose_calendar.ui.DarkerWhite
 import dev.alejo.compose_calendar.util.CalendarColors
+import dev.alejo.compose_calendar.util.CalendarDefaults
 import dev.alejo.compose_calendar.util.CalendarDefaults.calendarColors
 import java.time.LocalDate
 import java.time.format.TextStyle
@@ -42,14 +42,14 @@ fun CalendarHeader(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(calendarColors.headerBackgroundColor, RoundedCornerShape(AppDimens.Default))
+            .background(calendarColors.headerBackgroundColor, RoundedCornerShape(CalendarDefaults.Dimens.Default))
             .padding(vertical = 16.dp),
-        verticalArrangement = Arrangement.spacedBy(AppDimens.Default)
+        verticalArrangement = Arrangement.spacedBy(CalendarDefaults.Dimens.Default)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = AppDimens.Default),
+            modifier = Modifier.fillMaxWidth().padding(horizontal = CalendarDefaults.Dimens.Default),
             verticalAlignment = Alignment.CenterVertically,
-            horizontalArrangement = Arrangement.spacedBy(AppDimens.Small)
+            horizontalArrangement = Arrangement.spacedBy(CalendarDefaults.Dimens.Small)
         ) {
             Text(
                 modifier = Modifier.weight(1f),
@@ -65,7 +65,7 @@ fun CalendarHeader(
                 },
                 icon = Icons.AutoMirrored.Filled.ArrowBackIos,
                 modifier = Modifier
-                    .offset(x = AppDimens.XSmall),
+                    .offset(x = CalendarDefaults.Dimens.XSmall),
                 backgroundColor = calendarColors.navigationBackgroundColor,
                 tintColor = calendarColors.navigationContentColor
             )
@@ -80,7 +80,7 @@ fun CalendarHeader(
         }
         Row(
             modifier = Modifier
-                .fillMaxWidth().padding(horizontal = AppDimens.Small)
+                .fillMaxWidth().padding(horizontal = CalendarDefaults.Dimens.Small)
         ) {
             dayNames.forEach { dayName ->
                 Text(

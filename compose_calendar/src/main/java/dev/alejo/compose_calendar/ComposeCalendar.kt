@@ -17,8 +17,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import dev.alejo.compose_calendar.component.CalendarBody
 import dev.alejo.compose_calendar.component.CalendarHeader
-import dev.alejo.compose_calendar.ui.AppDimens
 import dev.alejo.compose_calendar.util.CalendarColors
+import dev.alejo.compose_calendar.util.CalendarDefaults
 import dev.alejo.compose_calendar.util.CalendarDefaults.calendarColors
 import java.time.LocalDate
 
@@ -35,9 +35,9 @@ fun ComposeCalendar(
     Column(
         modifier = modifier
             .fillMaxWidth()
-            .background(calendarColors.backgroundColor, RoundedCornerShape(AppDimens.Default))
+            .background(calendarColors.backgroundColor, RoundedCornerShape(CalendarDefaults.Dimens.Default))
             .padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(AppDimens.Default)
+        verticalArrangement = Arrangement.spacedBy(CalendarDefaults.Dimens.Default)
     ) {
         CalendarHeader(
             currentYear = currentDate.value.year,

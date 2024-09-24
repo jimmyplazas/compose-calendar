@@ -6,12 +6,11 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import dev.alejo.compose_calendar.R
-import dev.alejo.compose_calendar.ui.AppDimens
+import dev.alejo.compose_calendar.util.CalendarDefaults
 
 @Composable
 fun NavigationButton(
@@ -23,7 +22,7 @@ fun NavigationButton(
 ) {
     IconButton(
         modifier = Modifier
-            .background(backgroundColor, RoundedCornerShape(AppDimens.Small)),
+            .background(backgroundColor, RoundedCornerShape(CalendarDefaults.Dimens.Small)),
         onClick = { onClick() }
     ) {
         Icon(

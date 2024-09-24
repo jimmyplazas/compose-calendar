@@ -11,8 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import dev.alejo.compose_calendar.CalendarEvent
-import dev.alejo.compose_calendar.ui.AppDimens
 import dev.alejo.compose_calendar.util.CalendarColors
+import dev.alejo.compose_calendar.util.CalendarDefaults
 import dev.alejo.compose_calendar.util.CalendarDefaults.calendarColors
 import java.time.LocalDate
 
@@ -34,9 +34,9 @@ fun CalendarBody(
         columns = GridCells.Fixed(7),
         modifier = Modifier.fillMaxWidth()
             .background(calendarColors.backgroundColor),
-        contentPadding = PaddingValues(AppDimens.Small),
-        horizontalArrangement = Arrangement.spacedBy(AppDimens.XSmall),
-        verticalArrangement = Arrangement.spacedBy(AppDimens.XSmall)
+        contentPadding = PaddingValues(CalendarDefaults.Dimens.Small),
+        horizontalArrangement = Arrangement.spacedBy(CalendarDefaults.Dimens.XSmall),
+        verticalArrangement = Arrangement.spacedBy(CalendarDefaults.Dimens.XSmall)
     ) {
         items(days) { day ->
             CalendarDay(

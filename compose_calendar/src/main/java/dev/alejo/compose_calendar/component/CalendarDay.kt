@@ -23,9 +23,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.alejo.compose_calendar.CalendarEvent
-import dev.alejo.compose_calendar.ui.AppDimens
 import dev.alejo.compose_calendar.ui.Blue05
 import dev.alejo.compose_calendar.util.CalendarColors
+import dev.alejo.compose_calendar.util.CalendarDefaults
 import dev.alejo.compose_calendar.util.CalendarDefaults.calendarColors
 import java.time.LocalDate
 
@@ -47,9 +47,9 @@ fun CalendarDay(
             .background(
                 eventForThisDay?.let { calendarColors.eventBackgroundColor }
                     ?: calendarColors.backgroundColor,
-                RoundedCornerShape(AppDimens.Small)
+                RoundedCornerShape(CalendarDefaults.Dimens.Small)
             )
-            .padding(AppDimens.XSmall)
+            .padding(CalendarDefaults.Dimens.XSmall)
             .clickable {
                 onDayClick(eventForThisDay)
             },

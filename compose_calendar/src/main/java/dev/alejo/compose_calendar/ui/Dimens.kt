@@ -8,8 +8,3 @@ import androidx.compose.ui.unit.sp
  * Using this object ensures consistency in the application's UI and makesit easier to
  * manage dimensions.
  */
-object AppDimens {
-    val XSmall = 4.dp
-    val Small = 8.dp
-    val Default = 16.dp
-}
