@@ -9,13 +9,13 @@ interface for displaying calendar events focused on simplicity and material desi
 - **Easy to Use**: Simple integration into your application.
 - **Customizable**: Modify the style and functionality to suit your needs.
 
-Made with ❤️ by [Jimmy Plazas](https://jimmyplazas.dev)
+Made with ❤️ by [Jimmy Plazas](https://jimmyplazas.dev){:target="_blank"}
 
 ## Getting Started
 
 To integrate the Compose Calendar library into your Android app, follow the next steps:
 
-* 1. Add your MavenCentral and Jitpack to you `settings.gradle.kts` file
+1. Add your MavenCentral and Jitpack to you `settings.gradle.kts` file
 
 ```
 dependencyResolutionManagement {
@@ -41,7 +41,7 @@ dependencyResolutionManagement {
 }
 ```
 
-* 2. Add the dependency in your project `libs.versions.toml` file
+2. Add the dependency in your project `libs.versions.toml` file
 
 ```
 [versions]
@@ -135,3 +135,6 @@ Contributions are always welcome! To contribute, please follow these steps:
 - Push to the branch (git push origin feature/your-feature).
 - Open a pull request.
 
+## License
+
+This project is licensed under the terms of the [Apache License 2.0](./LICENSE). 
