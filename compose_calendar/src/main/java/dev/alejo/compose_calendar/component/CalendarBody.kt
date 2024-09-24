@@ -14,10 +14,14 @@ import dev.alejo.compose_calendar.ui.AppDimens
 import java.time.LocalDate
 
 @Composable
-fun CalendarBody(date: LocalDate, events: List<CalendarEvent>) {
+fun CalendarBody(
+    date: LocalDate,
+    events: List<CalendarEvent>,
+    onDayClick: (CalendarEvent?) -> Unit = {}
+) {
     val startDay = date.withDayOfMonth(1)
     val daysInMonth = startDay.lengthOfMonth()
-    val startDayOfWeek = (startDay.dayOfWeek.value - 1 ) % 7
+    val startDayOfWeek = (startDay.dayOfWeek.value - 1) % 7
 
     // List of days including leading empty days
     val days = List(startDayOfWeek) { "" } + List(daysInMonth) { it + 1 }
@@ -30,7 +34,11 @@ fun CalendarBody(date: LocalDate, events: List<CalendarEvent>) {
         verticalArrangement = Arrangement.spacedBy(AppDimens.XSmall)
     ) {
         items(days) { day ->
-            CalendarDay(day = day, events = events, currentDate = date)
+            CalendarDay(
+                day = day,
+                events = events,
+                currentDate = date,
+                onDayClick = { event -> onDayClick(event) })
         }
     }
 }

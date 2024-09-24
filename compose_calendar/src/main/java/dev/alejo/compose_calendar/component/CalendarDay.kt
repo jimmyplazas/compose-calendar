@@ -2,6 +2,7 @@ package dev.alejo.compose_calendar.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -26,7 +27,12 @@ import dev.alejo.compose_calendar.ui.DarkerWhite
 import java.time.LocalDate
 
 @Composable
-fun CalendarDay(day: Any, currentDate: LocalDate, events: List<CalendarEvent>) {
+fun CalendarDay(
+    day: Any,
+    currentDate: LocalDate,
+    events: List<CalendarEvent>,
+    onDayClick: (CalendarEvent?) -> Unit = {}
+) {
     val date = if (day is Int) LocalDate.of(currentDate.year, currentDate.monthValue, day) else null
     val eventForThisDay = date?.let {
         events.find { it.date == date }
@@ -38,7 +44,10 @@ fun CalendarDay(day: Any, currentDate: LocalDate, events: List<CalendarEvent>) {
                 eventForThisDay?.let { Blue05 } ?: DarkerWhite,
                 RoundedCornerShape(AppDimens.Small)
             )
-            .padding(AppDimens.XSmall),
+            .padding(AppDimens.XSmall)
+            .clickable {
+                onDayClick(eventForThisDay)
+            },
         contentAlignment = Alignment.Center
     ) {
         Column(

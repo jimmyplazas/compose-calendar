@@ -69,8 +69,7 @@ fun CalendarHeader(
         }
         Row(
             modifier = Modifier
-                .fillMaxWidth().padding(horizontal = AppDimens.Small),
-            horizontalArrangement = Arrangement.spacedBy(AppDimens.Small)
+                .fillMaxWidth().padding(horizontal = AppDimens.Small)
         ) {
             dayNames.forEach { dayName ->
                 Text(

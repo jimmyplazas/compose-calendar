@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Adb
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -21,7 +23,8 @@ import java.time.LocalDate
 @Composable
 fun ComposeCalendar(
     initDate: LocalDate = LocalDate.now(),
-    events: List<CalendarEvent> = emptyList()
+    events: List<CalendarEvent> = emptyList(),
+    onDayClick: (CalendarEvent?) -> Unit = {}
 ) {
     val currentDate = rememberSaveable { mutableStateOf(initDate) }
 
@@ -42,12 +45,24 @@ fun ComposeCalendar(
                 currentDate.value = currentDate.value.plusMonths(1)
             }
         )
-        CalendarBody(date = currentDate.value, events = events)
+        CalendarBody(
+            date = currentDate.value,
+            events = events,
+            onDayClick = { event -> onDayClick(event) })
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun ComposeCalendarPreview() {
-    ComposeCalendar()
+    ComposeCalendar(
+        events = listOf(
+            CalendarEvent(
+                title = "Event 1",
+                date = LocalDate.now(),
+                description = "Description 1",
+                icon = Icons.Default.Adb
+            )
+        )
+    )
 }
