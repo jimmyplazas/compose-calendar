@@ -1,4 +1,4 @@
-package dev.alejo.compose_calendar.ui.utils
+package dev.alejo.compose_calendar.ui
 
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp

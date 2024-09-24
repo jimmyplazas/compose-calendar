@@ -1,4 +1,4 @@
-package dev.alejo.compose_calendar.ui.component
+package dev.alejo.compose_calendar.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -19,8 +19,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import dev.alejo.compose_calendar.ui.utils.AppDimens
-import dev.alejo.compose_calendar.ui.utils.DarkerWhite
+import dev.alejo.compose_calendar.ui.AppDimens
+import dev.alejo.compose_calendar.ui.DarkerWhite
 
 @Composable
 fun Header(

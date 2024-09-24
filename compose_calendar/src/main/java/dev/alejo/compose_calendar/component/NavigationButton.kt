@@ -1,4 +1,4 @@
-package dev.alejo.compose_calendar.ui.component
+package dev.alejo.compose_calendar.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.offset
@@ -11,8 +11,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import dev.alejo.compose_calendar.R
-import dev.alejo.compose_calendar.ui.utils.AppDimens
-import dev.alejo.compose_calendar.ui.utils.Blue10
+import dev.alejo.compose_calendar.ui.AppDimens
+import dev.alejo.compose_calendar.ui.Blue10
 
 @Composable
 fun NavigationButton(
