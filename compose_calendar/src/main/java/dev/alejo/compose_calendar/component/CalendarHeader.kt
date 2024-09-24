@@ -16,13 +16,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import dev.alejo.compose_calendar.ui.Blue10
-import dev.alejo.compose_calendar.ui.DarkerWhite
 import dev.alejo.compose_calendar.util.CalendarColors
 import dev.alejo.compose_calendar.util.CalendarDefaults
 import dev.alejo.compose_calendar.util.CalendarDefaults.calendarColors
@@ -103,11 +100,6 @@ fun HeaderPreview() {
         currentMonth = LocalDate.now().monthValue,
         onPreviousMonthClick = {},
         onNextMonthClick = {},
-        calendarColors = calendarColors(
-            headerBackgroundColor = DarkerWhite,
-            headerContentColor = Color.Black,
-            navigationBackgroundColor = Blue10,
-            navigationContentColor = Color.Black
-        )
+        calendarColors = calendarColors()
     )
 }

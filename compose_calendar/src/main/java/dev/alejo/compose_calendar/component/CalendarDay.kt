@@ -15,7 +15,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
@@ -23,7 +22,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import dev.alejo.compose_calendar.CalendarEvent
-import dev.alejo.compose_calendar.ui.Blue05
 import dev.alejo.compose_calendar.util.CalendarColors
 import dev.alejo.compose_calendar.util.CalendarDefaults
 import dev.alejo.compose_calendar.util.CalendarDefaults.calendarColors
@@ -101,9 +99,6 @@ fun DayPreview() {
         day = day,
         currentDate = LocalDate.of(year, month, day),
         events = events,
-        calendarColors = calendarColors(
-            eventBackgroundColor = Blue05,
-            eventContentColor = Color.Black
-        )
+        calendarColors = calendarColors()
     )
 }
