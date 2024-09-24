@@ -24,6 +24,7 @@ import java.time.LocalDate
 
 @Composable
 fun ComposeCalendar(
+    modifier: Modifier = Modifier,
     initDate: LocalDate = LocalDate.now(),
     events: List<CalendarEvent> = emptyList(),
     onDayClick: (CalendarEvent?) -> Unit = {},
@@ -32,7 +33,7 @@ fun ComposeCalendar(
     val currentDate = rememberSaveable { mutableStateOf(initDate) }
 
     Column(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .background(calendarColors.backgroundColor, RoundedCornerShape(AppDimens.Default))
             .padding(16.dp),
