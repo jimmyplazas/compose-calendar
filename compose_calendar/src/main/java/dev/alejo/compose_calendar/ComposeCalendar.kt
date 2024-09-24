@@ -8,8 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Adb
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -19,9 +18,8 @@ import androidx.compose.ui.unit.dp
 import dev.alejo.compose_calendar.component.CalendarBody
 import dev.alejo.compose_calendar.component.CalendarHeader
 import dev.alejo.compose_calendar.ui.AppDimens
-import dev.alejo.compose_calendar.ui.DarkerWhite
 import dev.alejo.compose_calendar.util.CalendarColors
-import dev.alejo.compose_calendar.util.CalendarDefaults
+import dev.alejo.compose_calendar.util.CalendarDefaults.calendarColors
 import java.time.LocalDate
 
 @Composable
@@ -29,12 +27,7 @@ fun ComposeCalendar(
     initDate: LocalDate = LocalDate.now(),
     events: List<CalendarEvent> = emptyList(),
     onDayClick: (CalendarEvent?) -> Unit = {},
-    calendarColors: CalendarColors = CalendarDefaults.CalendarColors(
-        backgroundColor = DarkerWhite,
-        contentColor = DarkerWhite,
-        headerBackgroundColor = DarkerWhite,
-        headerContentColor = DarkerWhite
-    )
+    calendarColors: CalendarColors = calendarColors()
 ) {
     val currentDate = rememberSaveable { mutableStateOf(initDate) }
 
@@ -59,7 +52,9 @@ fun ComposeCalendar(
         CalendarBody(
             date = currentDate.value,
             events = events,
-            onDayClick = { event -> onDayClick(event) })
+            onDayClick = { event -> onDayClick(event) },
+            calendarColors = calendarColors,
+        )
     }
 }
 
@@ -74,6 +69,10 @@ fun ComposeCalendarPreview() {
                 description = "Description 1",
                 icon = Icons.Default.Adb
             )
+        ),
+        calendarColors = calendarColors(
+            eventBackgroundColor = MaterialTheme.colorScheme.surfaceContainerLow,
+            eventContentColor = MaterialTheme.colorScheme.onSurface
         )
     )
 }

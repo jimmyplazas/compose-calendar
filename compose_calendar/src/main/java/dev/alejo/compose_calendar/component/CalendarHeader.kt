@@ -25,6 +25,7 @@ import dev.alejo.compose_calendar.ui.AppDimens
 import dev.alejo.compose_calendar.ui.Blue10
 import dev.alejo.compose_calendar.ui.DarkerWhite
 import dev.alejo.compose_calendar.util.CalendarColors
+import dev.alejo.compose_calendar.util.CalendarDefaults.calendarColors
 import java.time.LocalDate
 import java.time.format.TextStyle
 import java.util.Locale
@@ -102,9 +103,7 @@ fun HeaderPreview() {
         currentMonth = LocalDate.now().monthValue,
         onPreviousMonthClick = {},
         onNextMonthClick = {},
-        calendarColors = CalendarColors(
-            backgroundColor = DarkerWhite,
-            contentColor = DarkerWhite,
+        calendarColors = calendarColors(
             headerBackgroundColor = DarkerWhite,
             headerContentColor = Color.Black,
             navigationBackgroundColor = Blue10,

@@ -8,23 +8,25 @@ import androidx.compose.ui.graphics.Color
 object CalendarDefaults {
 
     @Composable
-    fun CalendarColors(
+    fun calendarColors(
         backgroundColor: Color = MaterialTheme.colorScheme.surface,
         contentColor: Color = MaterialTheme.colorScheme.onSurface,
         headerBackgroundColor: Color = MaterialTheme.colorScheme.surface,
         headerContentColor: Color = MaterialTheme.colorScheme.onSurface,
-        navigationBackgroundColor: Color = MaterialTheme.colorScheme.surface,
-        navigationContentColor: Color = MaterialTheme.colorScheme.onSurface
-    ): CalendarColors {
-        return CalendarColors(
-            backgroundColor = backgroundColor,
-            contentColor = contentColor,
-            headerBackgroundColor = headerBackgroundColor,
-            headerContentColor = headerContentColor,
-            navigationBackgroundColor = navigationBackgroundColor,
-            navigationContentColor = navigationContentColor
-        )
-    }
+        navigationBackgroundColor: Color = MaterialTheme.colorScheme.primary,
+        navigationContentColor: Color = MaterialTheme.colorScheme.onPrimary,
+        eventBackgroundColor: Color = MaterialTheme.colorScheme.surfaceContainerLow,
+        eventContentColor: Color = MaterialTheme.colorScheme.onSurface,
+    ): CalendarColors = CalendarColors(
+        backgroundColor = backgroundColor,
+        contentColor = contentColor,
+        headerBackgroundColor = headerBackgroundColor,
+        headerContentColor = headerContentColor,
+        navigationBackgroundColor = navigationBackgroundColor,
+        navigationContentColor = navigationContentColor,
+        eventBackgroundColor = eventBackgroundColor,
+        eventContentColor = eventContentColor
+    )
 
 }
 
@@ -35,5 +37,7 @@ data class CalendarColors(
     val headerBackgroundColor: Color,
     val headerContentColor: Color,
     val navigationBackgroundColor: Color,
-    val navigationContentColor: Color
+    val navigationContentColor: Color,
+    val eventBackgroundColor: Color,
+    val eventContentColor: Color
 )

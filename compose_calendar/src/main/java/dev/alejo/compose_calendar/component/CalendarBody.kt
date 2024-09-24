@@ -1,5 +1,6 @@
 package dev.alejo.compose_calendar.component
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -11,13 +12,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import dev.alejo.compose_calendar.CalendarEvent
 import dev.alejo.compose_calendar.ui.AppDimens
+import dev.alejo.compose_calendar.util.CalendarColors
+import dev.alejo.compose_calendar.util.CalendarDefaults.calendarColors
 import java.time.LocalDate
 
 @Composable
 fun CalendarBody(
     date: LocalDate,
     events: List<CalendarEvent>,
-    onDayClick: (CalendarEvent?) -> Unit = {}
+    onDayClick: (CalendarEvent?) -> Unit = {},
+    calendarColors: CalendarColors
 ) {
     val startDay = date.withDayOfMonth(1)
     val daysInMonth = startDay.lengthOfMonth()
@@ -28,7 +32,8 @@ fun CalendarBody(
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(7),
-        modifier = Modifier.fillMaxWidth(),
+        modifier = Modifier.fillMaxWidth()
+            .background(calendarColors.backgroundColor),
         contentPadding = PaddingValues(AppDimens.Small),
         horizontalArrangement = Arrangement.spacedBy(AppDimens.XSmall),
         verticalArrangement = Arrangement.spacedBy(AppDimens.XSmall)
@@ -38,7 +43,9 @@ fun CalendarBody(
                 day = day,
                 events = events,
                 currentDate = date,
-                onDayClick = { event -> onDayClick(event) })
+                onDayClick = { event -> onDayClick(event) },
+                calendarColors = calendarColors
+            )
         }
     }
 }
@@ -46,5 +53,5 @@ fun CalendarBody(
 @Preview(showBackground = true)
 @Composable
 fun CalendarPreview() {
-    CalendarBody(date = LocalDate.now(), events = emptyList())
+    CalendarBody(date = LocalDate.now(), events = emptyList(), calendarColors = calendarColors())
 }
