@@ -51,7 +51,6 @@ android {
 
 dependencies {
 
-    implementation(project(path = ":compose_calendar"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
