@@ -9,7 +9,7 @@ interface for displaying calendar events focused on simplicity and material desi
 - **Easy to Use**: Simple integration into your application.
 - **Customizable**: Modify the style and functionality to suit your needs.
 
-Made with ❤️ by [Jimmy Plazas](https://jimmyplazas.dev){:target="_blank"}
+Made with ❤️ by <a href="https://jimmyplazas.dev" target="_blank">Jimmy Plazas</a>
 
 ## Getting Started
 
@@ -137,4 +137,20 @@ Contributions are always welcome! To contribute, please follow these steps:
 
 ## License
 
-This project is licensed under the terms of the [Apache License 2.0](./LICENSE). 
+This project is licensed under the terms of the [Apache License 2.0](./LICENSE).
+
+```
+   Copyright 2024 Jimmy Alejandro Plazas Lopez
+
+   Licensed under the Apache License, Version 2.0 (the "License");
+   you may not use this file except in compliance with the License.
+   You may obtain a copy of the License at
+
+       http://www.apache.org/licenses/LICENSE-2.0
+
+   Unless required by applicable law or agreed to in writing, software
+   distributed under the License is distributed on an "AS IS" BASIS,
+   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+   See the License for the specific language governing permissions and
+   limitations under the License.
+```
