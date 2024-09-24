@@ -9,11 +9,12 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import dev.alejo.compose_calendar.CalendarEvent
 import dev.alejo.compose_calendar.ui.AppDimens
 import java.time.LocalDate
 
 @Composable
-fun CalendarBody(date: LocalDate) {
+fun CalendarBody(date: LocalDate, events: List<CalendarEvent>) {
     val startDay = date.withDayOfMonth(1)
     val daysInMonth = startDay.lengthOfMonth()
     val startDayOfWeek = (startDay.dayOfWeek.value - 1 ) % 7
@@ -29,7 +30,7 @@ fun CalendarBody(date: LocalDate) {
         verticalArrangement = Arrangement.spacedBy(AppDimens.XSmall)
     ) {
         items(days) { day ->
-            CalendarDay(day = day, events = emptyList(), currentDate = date)
+            CalendarDay(day = day, events = events, currentDate = date)
         }
     }
 }
@@ -37,5 +38,5 @@ fun CalendarBody(date: LocalDate) {
 @Preview(showBackground = true)
 @Composable
 fun CalendarPreview() {
-    CalendarBody(date = LocalDate.now())
+    CalendarBody(date = LocalDate.now(), events = emptyList())
 }

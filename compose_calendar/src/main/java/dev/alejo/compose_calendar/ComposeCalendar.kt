@@ -20,7 +20,8 @@ import java.time.LocalDate
 
 @Composable
 fun ComposeCalendar(
-    initDate: LocalDate = LocalDate.now()
+    initDate: LocalDate = LocalDate.now(),
+    events: List<CalendarEvent> = emptyList()
 ) {
     val currentDate = rememberSaveable { mutableStateOf(initDate) }
 
@@ -41,7 +42,7 @@ fun ComposeCalendar(
                 currentDate.value = currentDate.value.plusMonths(1)
             }
         )
-        CalendarBody(date = currentDate.value)
+        CalendarBody(date = currentDate.value, events = events)
     }
 }
 
