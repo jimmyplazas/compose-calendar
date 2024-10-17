@@ -14,7 +14,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.PreviewFontScale
 import dev.alejo.compose_calendar.component.CalendarBody
 import dev.alejo.compose_calendar.component.CalendarHeader
 import dev.alejo.compose_calendar.util.CalendarColors
@@ -36,7 +36,7 @@ fun ComposeCalendar(
         modifier = modifier
             .fillMaxWidth()
             .background(calendarColors.backgroundColor, RoundedCornerShape(CalendarDefaults.Dimens.Default))
-            .padding(16.dp),
+            .padding(CalendarDefaults.Dimens.Default),
         verticalArrangement = Arrangement.spacedBy(CalendarDefaults.Dimens.Default)
     ) {
         CalendarHeader(
@@ -67,6 +67,24 @@ fun ComposeCalendarPreview() {
             CalendarEvent(
                 title = "Event 1",
                 date = LocalDate.now(),
+                description = "Description 1",
+                icon = Icons.Default.Adb
+            ),
+            CalendarEvent(
+                title = "Event 1",
+                date = LocalDate.now().plusDays(1),
+                description = "Description 1",
+                icon = Icons.Default.Adb
+            ),
+            CalendarEvent(
+                title = "Event 1",
+                date = LocalDate.now().plusDays(7),
+                description = "Description 1",
+                icon = Icons.Default.Adb
+            ),
+            CalendarEvent(
+                title = "Event 1",
+                date = LocalDate.now().plusDays(14),
                 description = "Description 1",
                 icon = Icons.Default.Adb
             )

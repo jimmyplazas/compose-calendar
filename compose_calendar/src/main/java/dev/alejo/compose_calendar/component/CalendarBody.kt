@@ -2,7 +2,6 @@ package dev.alejo.compose_calendar.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -34,7 +33,6 @@ fun CalendarBody(
         columns = GridCells.Fixed(7),
         modifier = Modifier.fillMaxWidth()
             .background(calendarColors.backgroundColor),
-        contentPadding = PaddingValues(CalendarDefaults.Dimens.Small),
         horizontalArrangement = Arrangement.spacedBy(CalendarDefaults.Dimens.XSmall),
         verticalArrangement = Arrangement.spacedBy(CalendarDefaults.Dimens.XSmall)
     ) {
