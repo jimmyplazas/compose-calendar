@@ -19,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import dev.alejo.compose_calendar.util.CalendarColors
 import dev.alejo.compose_calendar.util.CalendarDefaults
 import dev.alejo.compose_calendar.util.CalendarDefaults.calendarColors
@@ -35,16 +34,20 @@ fun CalendarHeader(
     onPreviousMonthClick: () -> Unit,
     onNextMonthClick: () -> Unit
 ) {
-    val dayNames = listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+    val dayNames = if (Locale.getDefault().language == Locale.ENGLISH.language) {
+        listOf("Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom")
+    } else {
+        listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+    }
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(calendarColors.headerBackgroundColor, RoundedCornerShape(CalendarDefaults.Dimens.Default))
-            .padding(vertical = 16.dp),
+            .background(calendarColors.headerBackgroundColor, RoundedCornerShape(CalendarDefaults.Dimens.Default)),
         verticalArrangement = Arrangement.spacedBy(CalendarDefaults.Dimens.Default)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth().padding(horizontal = CalendarDefaults.Dimens.Default),
+            modifier = Modifier.fillMaxWidth()
+                .padding(horizontal = CalendarDefaults.Dimens.Small),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(CalendarDefaults.Dimens.Small)
         ) {
@@ -76,8 +79,7 @@ fun CalendarHeader(
             )
         }
         Row(
-            modifier = Modifier
-                .fillMaxWidth().padding(horizontal = CalendarDefaults.Dimens.Small)
+            modifier = Modifier.fillMaxWidth()
         ) {
             dayNames.forEach { dayName ->
                 Text(
