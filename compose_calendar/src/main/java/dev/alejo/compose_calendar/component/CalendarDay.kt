@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Adb
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -19,8 +18,8 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewFontScale
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import dev.alejo.compose_calendar.CalendarEvent
 import dev.alejo.compose_calendar.util.CalendarColors
 import dev.alejo.compose_calendar.util.CalendarDefaults
@@ -59,9 +58,7 @@ fun CalendarDay(
             if (date != null) {
                 Text(
                     text = date.dayOfMonth.toString(),
-                    style = MaterialTheme.typography.bodyLarge.copy(fontSize = 16.sp),
                     textAlign = TextAlign.Center,
-                    modifier = Modifier.weight(3f),
                     color = eventForThisDay?.let {
                         calendarColors.eventContentColor
                     } ?: calendarColors.contentColor
@@ -70,8 +67,8 @@ fun CalendarDay(
                 eventForThisDay?.let { event ->
                     Image(
                         imageVector = event.icon,
+                        modifier = Modifier.size(16.dp),
                         contentDescription = event.description,
-                        modifier = Modifier.weight(2f),
                         contentScale = ContentScale.Fit,
                         colorFilter = ColorFilter.tint(calendarColors.eventContentColor)
                     )
