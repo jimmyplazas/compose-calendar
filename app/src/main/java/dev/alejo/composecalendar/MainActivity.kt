@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -24,6 +25,7 @@ import dev.alejo.compose_calendar.util.CalendarDefaults.calendarColors
 import dev.alejo.composecalendar.ui.theme.ComposeCalendarTheme
 import kotlinx.datetime.Clock
 import kotlinx.datetime.DatePeriod
+import kotlinx.datetime.LocalDate
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.plus
 import kotlinx.datetime.toLocalDateTime
@@ -53,6 +55,18 @@ fun Calendar() {
             animatedBody = false,
             modifier = Modifier.padding(16.dp),
             events = listOf(
+                CalendarEvent(
+                    title = "Event 17",
+                    date = LocalDate(2025, 5, 16),
+                    description = "Description 17",
+                    icon = Icons.Default.Add
+                ),
+                CalendarEvent(
+                    title = "Event 13",
+                    date = LocalDate(2025, 5, 16),
+                    description = "Description 13",
+                    icon = Icons.Default.Star
+                ),
                 CalendarEvent(
                     title = "Event 1",
                     date = Clock.System.now()
@@ -87,11 +101,12 @@ fun Calendar() {
                 backgroundColor = Color.White,
                 headerBackgroundColor = Color.White
             ),
-            onDayClick = { event ->
+            onDayClick = { date, event ->
+                println(date.toString())
                 println(event.toString())
             },
-            onPreviousMonthClick = {  },
-            onNextMonthClick = {  }
+            onPreviousMonthClick = { println("Prev") },
+            onNextMonthClick = { println("Next") }
         )
     }
 }
