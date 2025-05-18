@@ -27,17 +27,20 @@ import kotlinx.datetime.plus
 import kotlinx.datetime.toLocalDateTime
 
 /**
- * A custom composable calendar that displays a month view with optional event indicators.
+ * A custom composable calendar that displays a month view with optional event indicators
+ * and navigation controls.
  *
  * @param modifier The [Modifier] to be applied to the calendar layout.
  * @param initDate The initial date to display on the calendar. Defaults to the current date.
  * @param events A list of [CalendarEvent] representing events to display on specific dates.
- * @param onDayClick Lambda that is triggered when a day is clicked.
+ * @param onDayClick Lambda triggered when a day is clicked.
  *        Passes the corresponding [CalendarEvent] if one exists, or `null` otherwise.
- * @param calendarColors The color scheme for customizing the appearance of the calendar.
+ * @param calendarColors The color scheme used to style the calendar.
  *        Defaults to [CalendarDefaults.calendarColors].
  * @param animatedBody Whether the body of the calendar (days grid) should animate
  *        during month transitions.
+ * @param onPreviousMonthClick Callback invoked when the user navigates to the previous month.
+ * @param onNextMonthClick Callback invoked when the user navigates to the next month.
  */
 
 @Composable
@@ -49,7 +52,9 @@ fun ComposeCalendar(
     events: List<CalendarEvent> = emptyList(),
     onDayClick: (CalendarEvent?) -> Unit = {},
     calendarColors: CalendarColors = CalendarDefaults.calendarColors(),
-    animatedBody: Boolean = true
+    animatedBody: Boolean = true,
+    onPreviousMonthClick: () -> Unit = {},
+    onNextMonthClick: () -> Unit = {}
 ) {
     val localDateSaver: Saver<LocalDate, String> = Saver(
         save = { it.toString() },
@@ -75,9 +80,11 @@ fun ComposeCalendar(
             calendarColors = calendarColors,
             onPreviousMonthClick = {
                 currentDate = currentDate.minus(DatePeriod(years = 0, months = 1, days = 0))
+                onPreviousMonthClick()
             },
             onNextMonthClick = {
                 currentDate = currentDate.plus(DatePeriod(years = 0, months = 1, days = 0))
+                onNextMonthClick()
             }
         )
         CalendarBody(
