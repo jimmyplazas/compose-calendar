@@ -64,7 +64,7 @@ composeCalendar = "{latest_version}"
 
 [libraries]
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
-compose-calendar = { module = "com.github.jimmyale3102:compose-calendar", version.ref = "composeCalendar" }
+compose-calendar = { module = "com.github.jimmyplazas:compose-calendar", version.ref = "composeCalendar" }
 ```
 
 And then add the library to your `build.gradle.kts` file
