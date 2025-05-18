@@ -34,7 +34,8 @@ import kotlinx.datetime.toLocalDateTime
  * @param initDate The initial date to display on the calendar. Defaults to the current date.
  * @param events A list of [CalendarEvent] representing events to display on specific dates.
  * @param onDayClick Lambda triggered when a day is clicked.
- *        Passes the corresponding [CalendarEvent] if one exists, or `null` otherwise.
+ *        Passes the clicked [LocalDate] and a list of [CalendarEvent]s associated with that date.
+ *        The list will be empty if there are no events for that day.
  * @param calendarColors The color scheme used to style the calendar.
  *        Defaults to [CalendarDefaults.calendarColors].
  * @param animatedBody Whether the body of the calendar (days grid) should animate
