@@ -1,6 +1,6 @@
 # Compose Calendar
 
-![ComposeCalendar](https://github.com/jimmyale3102/compose-calendar/blob/main/img/banner.png)
+![ComposeCalendar](https://github.com/jimmyplazas/compose-calendar/blob/main/img/banner.png)
 
 A simple, customizable and easy-to-use calendar component built entirely with Jetpack Compose.
 Designed to fit seamlessly into modern Android applications, this library offers a flexible
@@ -21,11 +21,22 @@ To integrate the Compose Calendar library into your Android app, follow the next
 
 ```
 dependencyResolutionManagement {
-    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
-        google()
+        google {
+            mavenContent {
+                includeGroupAndSubgroups("androidx")
+                includeGroupAndSubgroups("com.android")
+                includeGroupAndSubgroups("com.google")
+            }
+        }
         mavenCentral()
-        maven { url = uri(path = "https://jitpack.io") }
+
+        // 👇 Aquí agregas jitpack
+        maven(url = "https://jitpack.io") {
+            content {
+                includeGroupByRegex("com\\.github\\..*")
+            }
+        }
     }
 }
 ```
@@ -35,11 +46,12 @@ build.gradle file
 
 ```
 dependencyResolutionManagement {
-	repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
-	repositories {
-		mavenCentral()
-		maven { url 'https://jitpack.io' }
-	}
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url = uri(path = "https://jitpack.io") }
+    }
 }
 ```
 
@@ -47,9 +59,11 @@ dependencyResolutionManagement {
 
 ```
 [versions]
+kotlinxDatetime = "0.6.0"
 composeCalendar = "{latest_version}"
 
 [libraries]
+kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
 compose-calendar = { module = "com.github.jimmyale3102:compose-calendar", version.ref = "composeCalendar" }
 ```
 
@@ -68,10 +82,15 @@ with.  [![GitHub Release](https://img.shields.io/github/v/release/jimmyale3102/c
 @Composable
 fun ComposeCalendar(
     modifier: Modifier = Modifier,
-    initDate: LocalDate = LocalDate.now(),
+    initDate: LocalDate = Clock.System.now()
+        .toLocalDateTime(TimeZone.currentSystemDefault())
+        .date.toInitDate(),
     events: List<CalendarEvent> = emptyList(),
     onDayClick: (CalendarEvent?) -> Unit = {},
-    calendarColors: CalendarColors = calendarColors()
+    calendarColors: CalendarColors = CalendarDefaults.calendarColors(),
+    animatedBody: Boolean = true,
+    onPreviousMonthClick: () -> Unit = {},
+    onNextMonthClick: () -> Unit = {}
 )
 ```
 
@@ -89,6 +108,7 @@ fun ComposeCalendar(
   associated with the clicked day.
 - `calendarColors`: This allows you to customize the color scheme of the calendar. If not specified,
   it will use a default color set defined by the calendarColors() function.
+- `animatedBody`: Whether the body of the calendar (days grid) should animate during month transitions.
 
 **CalendarEvents**
 
@@ -111,7 +131,8 @@ ComposeCalendar(
     events = listOf(
         CalendarEvent(
             title = "Event 1",
-            date = LocalDate.now(),
+            date = Clock.System.now()
+                .toLocalDateTime(TimeZone.currentSystemDefault()).date,
             description = "Description 1",
             icon = Icons.Default.Star
         )
