@@ -7,7 +7,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 object CalendarDefaults {
-
     /**
      * This object holds the dimension values used across the application.
      * Using this object ensures consistency in the application's UI and makesit easier to
