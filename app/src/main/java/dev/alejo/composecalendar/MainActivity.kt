@@ -89,7 +89,9 @@ fun Calendar() {
             ),
             onDayClick = { event ->
                 println(event.toString())
-            }
+            },
+            onPreviousMonthClick = {  },
+            onNextMonthClick = {  }
         )
     }
 }

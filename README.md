@@ -74,7 +74,7 @@ implementation(libs.compose.calendar)
 ```
 
 Replace the `{latest_version}`
-with.  [![GitHub Release](https://img.shields.io/github/v/release/jimmyale3102/compose-calendar?label=ComposeCalendar&sort=semver)](https://github.com/jimmyale3102/compose-calendar/releases/latest)
+with.  [![GitHub Release](https://img.shields.io/github/v/release/jimmyplazas/compose-calendar?label=ComposeCalendar&sort=semver)](https://github.com/jimmyplazas/compose-calendar/releases/latest)
 
 ## Documentation
 
@@ -109,6 +109,8 @@ fun ComposeCalendar(
 - `calendarColors`: This allows you to customize the color scheme of the calendar. If not specified,
   it will use a default color set defined by the calendarColors() function.
 - `animatedBody`: Whether the body of the calendar (days grid) should animate during month transitions.
+- `onPreviousMonthClick`: Callback invoked when the user navigates to the previous month.
+- `onNextMonthClick:` Callback invoked when the user navigates to the next month.
 
 **CalendarEvents**
 
@@ -117,10 +119,10 @@ the title, optional description, date, and an associated icon.
 
 ```
 data class CalendarEvent(
-    val title: String,
+    val title: String? = null,
     val description: String? = null,
     val date: LocalDate,
-    val icon: ImageVector
+    val icon: ImageVector? = null
 )
 ```
 
@@ -141,7 +143,13 @@ ComposeCalendar(
         eventBackgroundColor = MaterialTheme.colorScheme.surfaceContainerLow,
         eventContentColor = MaterialTheme.colorScheme.onSurface
     ),
-    onDayClick = {
+    onDayClick = { event -> 
+        /* Do Something */ 
+    },
+    onPreviousMonthClick = { 
+        /* Do Something */
+    },
+    onNextMonthClick = {  
         /* Do Something */
     }
 )
