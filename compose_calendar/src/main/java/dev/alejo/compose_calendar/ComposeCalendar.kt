@@ -50,7 +50,7 @@ fun ComposeCalendar(
         .toLocalDateTime(TimeZone.currentSystemDefault())
         .date.toInitDate(),
     events: List<CalendarEvent> = emptyList(),
-    onDayClick: (CalendarEvent?) -> Unit = {},
+    onDayClick: (date: LocalDate, events: List<CalendarEvent>) -> Unit = { _, _ -> },
     calendarColors: CalendarColors = CalendarDefaults.calendarColors(),
     animatedBody: Boolean = true,
     onPreviousMonthClick: () -> Unit = {},
@@ -90,7 +90,7 @@ fun ComposeCalendar(
         CalendarBody(
             currentDate = currentDate,
             events = events,
-            onDayClick = { event -> onDayClick(event) },
+            onDayClick = { date, events -> onDayClick(date, events) },
             calendarColors = calendarColors,
             animatedBody = animatedBody
         )
