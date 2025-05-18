@@ -44,7 +44,8 @@ import kotlinx.datetime.toLocalDateTime
 fun ComposeCalendar(
     modifier: Modifier = Modifier,
     initDate: LocalDate = Clock.System.now()
-        .toLocalDateTime(TimeZone.currentSystemDefault()).date.toInitDate(),
+        .toLocalDateTime(TimeZone.currentSystemDefault())
+        .date.toInitDate(),
     events: List<CalendarEvent> = emptyList(),
     onDayClick: (CalendarEvent?) -> Unit = {},
     calendarColors: CalendarColors = CalendarDefaults.calendarColors(),
