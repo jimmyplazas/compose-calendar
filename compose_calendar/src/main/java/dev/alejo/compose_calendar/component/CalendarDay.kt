@@ -49,10 +49,10 @@ fun CalendarDay(
                     ?: calendarColors.backgroundColor,
                 RoundedCornerShape(CalendarDefaults.Dimens.Small)
             )
-            .padding(CalendarDefaults.Dimens.XSmall)
             .clickable {
                 onDayClick(eventForThisDay)
-            },
+            }
+            .padding(CalendarDefaults.Dimens.XSmall),
         contentAlignment = Alignment.Center
     ) {
         Column(
@@ -68,13 +68,15 @@ fun CalendarDay(
                 )
 
                 eventForThisDay?.let { event ->
-                    Image(
-                        imageVector = event.icon,
-                        modifier = Modifier.size(16.dp),
-                        contentDescription = event.description,
-                        contentScale = ContentScale.Fit,
-                        colorFilter = ColorFilter.tint(calendarColors.eventContentColor)
-                    )
+                    event.icon?.let {
+                        Image(
+                            imageVector = event.icon,
+                            modifier = Modifier.size(16.dp),
+                            contentDescription = event.description,
+                            contentScale = ContentScale.Fit,
+                            colorFilter = ColorFilter.tint(calendarColors.eventContentColor)
+                        )
+                    }
                 }
             }
         }
