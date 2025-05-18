@@ -4,13 +4,11 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,7 +22,11 @@ import dev.alejo.compose_calendar.CalendarEvent
 import dev.alejo.compose_calendar.ComposeCalendar
 import dev.alejo.compose_calendar.util.CalendarDefaults.calendarColors
 import dev.alejo.composecalendar.ui.theme.ComposeCalendarTheme
-import java.time.LocalDate
+import kotlinx.datetime.Clock
+import kotlinx.datetime.DatePeriod
+import kotlinx.datetime.TimeZone
+import kotlinx.datetime.plus
+import kotlinx.datetime.toLocalDateTime
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +34,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             ComposeCalendarTheme {
-
+                Calendar()
             }
         }
     }
@@ -41,25 +43,45 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun Calendar() {
     Column(modifier = Modifier.padding(16.dp), horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "Compose Calendar", fontSize = 32.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
+        Text(
+            text = "Compose Calendar",
+            fontSize = 32.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.primary
+        )
         ComposeCalendar(
             modifier = Modifier.padding(16.dp),
             events = listOf(
                 CalendarEvent(
                     title = "Event 1",
-                    date = LocalDate.now(),
+                    date = Clock.System.now()
+                        .toLocalDateTime(TimeZone.currentSystemDefault()).date,
                     description = "Description 1",
                     icon = Icons.Default.Star
                 ),
                 CalendarEvent(
                     title = "Event 1",
-                    date = LocalDate.now().plusDays(3),
+                    date = Clock.System.now()
+                        .toLocalDateTime(TimeZone.currentSystemDefault()).date.plus(
+                            DatePeriod(
+                                years = 0,
+                                months = 0,
+                                days = 4
+                            )
+                        ),
                     description = "Description 1",
                     icon = Icons.Default.Star
                 ),
                 CalendarEvent(
                     title = "Event 1",
-                    date = LocalDate.now().minusDays(12),
+                    date = Clock.System.now()
+                        .toLocalDateTime(TimeZone.currentSystemDefault()).date.plus(
+                            DatePeriod(
+                                years = 0,
+                                months = 0,
+                                days = 8
+                            )
+                        ),
                     description = "Description 1",
                     icon = Icons.Default.Star
                 )
