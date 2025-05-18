@@ -50,6 +50,7 @@ fun Calendar() {
             color = MaterialTheme.colorScheme.primary
         )
         ComposeCalendar(
+            animatedBody = false,
             modifier = Modifier.padding(16.dp),
             events = listOf(
                 CalendarEvent(
@@ -60,7 +61,6 @@ fun Calendar() {
                     icon = Icons.Default.Star
                 ),
                 CalendarEvent(
-                    title = "Event 1",
                     date = Clock.System.now()
                         .toLocalDateTime(TimeZone.currentSystemDefault()).date.plus(
                             DatePeriod(
@@ -68,12 +68,9 @@ fun Calendar() {
                                 months = 0,
                                 days = 4
                             )
-                        ),
-                    description = "Description 1",
-                    icon = Icons.Default.Star
+                        )
                 ),
                 CalendarEvent(
-                    title = "Event 1",
                     date = Clock.System.now()
                         .toLocalDateTime(TimeZone.currentSystemDefault()).date.plus(
                             DatePeriod(
@@ -82,8 +79,6 @@ fun Calendar() {
                                 days = 8
                             )
                         ),
-                    description = "Description 1",
-                    icon = Icons.Default.Star
                 )
             ),
             calendarColors = calendarColors(
@@ -92,8 +87,8 @@ fun Calendar() {
                 backgroundColor = Color.White,
                 headerBackgroundColor = Color.White
             ),
-            onDayClick = {
-                /* Do Something */
+            onDayClick = { event ->
+                println(event.toString())
             }
         )
     }
