@@ -5,44 +5,46 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBackIos
-import androidx.compose.material.icons.automirrored.filled.ArrowForwardIos
+import androidx.compose.material.icons.filled.ArrowBackIosNew
+import androidx.compose.material.icons.filled.ArrowForwardIos
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import dev.alejo.compose_calendar.util.CalendarColors
 import dev.alejo.compose_calendar.util.CalendarDefaults
-import dev.alejo.compose_calendar.util.CalendarDefaults.calendarColors
-import java.time.LocalDate
-import java.time.format.TextStyle
 import java.util.Locale
 
 @Composable
 fun CalendarHeader(
-    currentYear: Int,
-    currentMonth: Int,
+    currentDate: kotlinx.datetime.LocalDate,
     calendarColors: CalendarColors,
     onPreviousMonthClick: () -> Unit,
     onNextMonthClick: () -> Unit
 ) {
-    val dayNames = if (Locale.getDefault().language == Locale.ENGLISH.language) {
-        listOf("Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom")
-    } else {
+    val locale = remember { Locale.getDefault() }
+    val isEnglish = locale.language == "en"
+
+    val dayNames =  if (isEnglish) {
         listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
+    } else {
+        listOf("Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom")
     }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(calendarColors.headerBackgroundColor, RoundedCornerShape(CalendarDefaults.Dimens.Default)),
+            .background(
+                color = calendarColors.headerBackgroundColor,
+                shape = RoundedCornerShape(CalendarDefaults.Dimens.Default)
+            ),
         verticalArrangement = Arrangement.spacedBy(CalendarDefaults.Dimens.Default)
     ) {
         Row(
@@ -53,9 +55,7 @@ fun CalendarHeader(
         ) {
             Text(
                 modifier = Modifier.weight(1f),
-                text = LocalDate.of(currentYear, currentMonth, 1)
-                    .month
-                    .getDisplayName(TextStyle.FULL, Locale.getDefault()) + " " + currentYear,
+                text = "${currentDate.month.name} ${currentDate.year}",
                 style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
                 color = calendarColors.headerContentColor
             )
@@ -63,9 +63,7 @@ fun CalendarHeader(
                 onClick = {
                     onPreviousMonthClick()
                 },
-                icon = Icons.AutoMirrored.Filled.ArrowBackIos,
-                modifier = Modifier
-                    .offset(x = CalendarDefaults.Dimens.XSmall),
+                icon = Icons.Default.ArrowBackIosNew,
                 backgroundColor = calendarColors.navigationBackgroundColor,
                 tintColor = calendarColors.navigationContentColor
             )
@@ -73,7 +71,7 @@ fun CalendarHeader(
                 onClick = {
                     onNextMonthClick()
                 },
-                icon = Icons.AutoMirrored.Filled.ArrowForwardIos,
+                icon = Icons.Default.ArrowForwardIos,
                 backgroundColor = calendarColors.navigationBackgroundColor,
                 tintColor = calendarColors.navigationContentColor
             )
@@ -92,16 +90,4 @@ fun CalendarHeader(
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun HeaderPreview() {
-    CalendarHeader(
-        currentYear = LocalDate.now().year,
-        currentMonth = LocalDate.now().monthValue,
-        onPreviousMonthClick = {},
-        onNextMonthClick = {},
-        calendarColors = calendarColors()
-    )
 }
