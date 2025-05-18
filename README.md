@@ -88,7 +88,9 @@ fun ComposeCalendar(
     events: List<CalendarEvent> = emptyList(),
     onDayClick: (CalendarEvent?) -> Unit = {},
     calendarColors: CalendarColors = CalendarDefaults.calendarColors(),
-    animatedBody: Boolean = true
+    animatedBody: Boolean = true,
+    onPreviousMonthClick: () -> Unit = {},
+    onNextMonthClick: () -> Unit = {}
 )
 ```
 
