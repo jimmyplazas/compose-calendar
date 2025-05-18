@@ -20,6 +20,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import dev.alejo.compose_calendar.util.CalendarColors
 import dev.alejo.compose_calendar.util.CalendarDefaults
+import dev.alejo.compose_calendar.util.toInitDate
+import kotlinx.datetime.number
 import java.util.Locale
 
 @Composable
@@ -32,7 +34,7 @@ fun CalendarHeader(
     val locale = remember { Locale.getDefault() }
     val isEnglish = locale.language == "en"
 
-    val dayNames =  if (isEnglish) {
+    val dayNames = if (isEnglish) {
         listOf("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun")
     } else {
         listOf("Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom")
@@ -48,14 +50,19 @@ fun CalendarHeader(
         verticalArrangement = Arrangement.spacedBy(CalendarDefaults.Dimens.Default)
     ) {
         Row(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(horizontal = CalendarDefaults.Dimens.Small),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(CalendarDefaults.Dimens.Small)
         ) {
+            val monthName = CalendarDefaults.getLocalizedMonthName(
+                currentDate,
+                isEnglish
+            )
             Text(
                 modifier = Modifier.weight(1f),
-                text = "${currentDate.month.name} ${currentDate.year}",
+                text = "$monthName ${currentDate.year}",
                 style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.Bold),
                 color = calendarColors.headerContentColor
             )
