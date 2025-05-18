@@ -86,7 +86,7 @@ fun ComposeCalendar(
         .toLocalDateTime(TimeZone.currentSystemDefault())
         .date.toInitDate(),
     events: List<CalendarEvent> = emptyList(),
-    onDayClick: (CalendarEvent?) -> Unit = {},
+    onDayClick: (date: LocalDate, events: List<CalendarEvent>) -> Unit = { _, _ -> },
     calendarColors: CalendarColors = CalendarDefaults.calendarColors(),
     animatedBody: Boolean = true,
     onPreviousMonthClick: () -> Unit = {},
@@ -103,9 +103,9 @@ fun ComposeCalendar(
   start from.
 - `events`: A list of CalendarEvent objects that represent the events to be displayed in the
   calendar. If no events are provided, the calendar will initialize with an empty list.
-- `onDayClick`: A callback function that is triggered when a day is clicked in the calendar. The
-  function receives a CalendarEvent? as a parameter, which can be null if there are no events
-  associated with the clicked day.
+- `onDayClick`: A callback function that is triggered when a day is clicked in the calendar.
+  The function receives a LocalDate representing the clicked day and a list of CalendarEvents
+  associated with that date. The list will be empty if there are no events for the selected day.
 - `calendarColors`: This allows you to customize the color scheme of the calendar. If not specified,
   it will use a default color set defined by the calendarColors() function.
 - `animatedBody`: Whether the body of the calendar (days grid) should animate during month transitions.
@@ -143,7 +143,7 @@ ComposeCalendar(
         eventBackgroundColor = MaterialTheme.colorScheme.surfaceContainerLow,
         eventContentColor = MaterialTheme.colorScheme.onSurface
     ),
-    onDayClick = { event -> 
+    onDayClick = { date, events -> 
         /* Do Something */ 
     },
     onPreviousMonthClick = { 

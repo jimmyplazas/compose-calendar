@@ -22,7 +22,7 @@ import kotlinx.datetime.isoDayNumber
 fun CalendarBody(
     currentDate: LocalDate,
     events: List<CalendarEvent>,
-    onDayClick: (CalendarEvent?) -> Unit = {},
+    onDayClick: (LocalDate, List<CalendarEvent>) -> Unit = { _, _ -> },
     calendarColors: CalendarColors,
     animatedBody: Boolean
 ) {
@@ -55,7 +55,7 @@ private fun BodyContent(
     days: List<Int?>,
     currentDate: LocalDate,
     events: List<CalendarEvent>,
-    onDayClick: (CalendarEvent?) -> Unit = {},
+    onDayClick: (LocalDate, List<CalendarEvent>) -> Unit = { _, _ -> },
     calendarColors: CalendarColors
 ) {
     LazyVerticalGrid(
@@ -71,7 +71,7 @@ private fun BodyContent(
                 day = day,
                 events = events,
                 currentDate = currentDate,
-                onDayClick = { event -> onDayClick(event) },
+                onDayClick = { date, events -> onDayClick(date, events) },
                 calendarColors = calendarColors
             )
         }
