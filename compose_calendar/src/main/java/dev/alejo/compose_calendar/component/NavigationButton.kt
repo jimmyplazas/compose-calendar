@@ -10,6 +10,15 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import dev.alejo.compose_calendar.util.CalendarDefaults
 
+/**
+ * Composable function for rendering a navigation button.
+ *
+ * @param onClick The callback to be invoked when the button is clicked.
+ * @param icon The [ImageVector] to be displayed as the button's icon.
+ * @param modifier The [Modifier] to be applied to the button.
+ * @param backgroundColor The background [Color] of the button.
+ * @param tintColor The tint [Color] of the icon.
+ */
 @Composable
 fun NavigationButton(
     onClick: () -> Unit,

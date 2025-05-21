@@ -5,9 +5,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.Immutable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.number
 
+/**
+ * This object provides default values for various components of the calendar.
+ * It includes default dimensions for spacing, sizes, and default colors for different parts of the calendar.
+ */
 object CalendarDefaults {
     /**
      * This object holds the dimension values used across the application.
@@ -15,9 +17,12 @@ object CalendarDefaults {
      * manage dimensions.
      */
     data object Dimens {
+        val EventsSpacedBy = 2.dp
         val XSmall = 4.dp
         val Small = 8.dp
         val Default = 16.dp
+        val IconSize = 16.dp
+        val DaySize = 48.dp
     }
 
     /**
@@ -56,30 +61,6 @@ object CalendarDefaults {
         eventBackgroundColor = eventBackgroundColor,
         eventContentColor = eventContentColor
     )
-
-    private val monthNamesEnglish = listOf(
-        "January", "February", "March", "April", "May", "June",
-        "July", "August", "September", "October", "November", "December"
-    )
-
-    private val monthNamesSpanish = listOf(
-        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-        "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
-    )
-
-    /**
-     * Returns the localized full name of the month from a given [LocalDate].
-     *
-     * @param date The [LocalDate] from which the month name will be extracted.
-     * @param isEnglish A boolean flag that determines the language of the result.
-     *        If `true`, returns the name in English; if `false`, returns it in Spanish.
-     * @return A [String] representing the full month name in the selected language.
-     */
-    fun getLocalizedMonthName(date: LocalDate, isEnglish: Boolean): String {
-        val index = date.month.number - 1
-        return if (isEnglish) monthNamesEnglish[index] else monthNamesSpanish[index]
-    }
-
 }
 
 /**

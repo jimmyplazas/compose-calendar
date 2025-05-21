@@ -11,8 +11,8 @@ android {
         applicationId = "dev.alejo.composecalendar"
         minSdk = 26
         targetSdk = 34
-        versionCode = 2
-        versionName = "1.2.0"
+        versionCode = 3
+        versionName = "3.0.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -58,7 +58,6 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
-    implementation(libs.kotlinx.datetime)
     implementation(project(":compose_calendar"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
