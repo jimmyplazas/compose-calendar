@@ -1,19 +1,18 @@
 package dev.alejo.compose_calendar
 
-import androidx.compose.ui.graphics.vector.ImageVector
-import kotlinx.datetime.LocalDate
+import androidx.compose.runtime.Composable
+import java.time.LocalDate
 
 /**
- * Represents an event to be displayed on a specific calendar date.
+ * Representa un evento en el calendario asociado a una fecha específica.
  *
- * @param title Optional title of the event. Can be `null` if not applicable.
- * @param description Optional detailed description of the event.
- * @param date The [LocalDate] on which the event occurs. This field is required.
- * @param icon Optional [ImageVector] to visually represent the event.
+ * @param T Tipo genérico que representa los datos asociados al evento.
+ * @property data Información adicional opcional relacionada con el evento.
+ * @property date Fecha del evento.
+ * @property indicatorContent Composable opcional que representa un icono o indicador visual para el evento.
  */
-data class CalendarEvent(
-    val title: String? = null,
-    val description: String? = null,
+data class CalendarEvent<T>(
+    val data: T? = null,
     val date: LocalDate,
-    val icon: ImageVector? = null
+    val indicatorContent: (@Composable () -> Unit)? = null
 )
