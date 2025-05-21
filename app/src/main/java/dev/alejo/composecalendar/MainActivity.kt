@@ -4,16 +4,18 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Star
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,12 +25,6 @@ import dev.alejo.compose_calendar.CalendarEvent
 import dev.alejo.compose_calendar.ComposeCalendar
 import dev.alejo.compose_calendar.util.CalendarDefaults.calendarColors
 import dev.alejo.composecalendar.ui.theme.ComposeCalendarTheme
-import kotlinx.datetime.Clock
-import kotlinx.datetime.DatePeriod
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.TimeZone
-import kotlinx.datetime.plus
-import kotlinx.datetime.toLocalDateTime
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,49 +48,8 @@ fun Calendar() {
             color = MaterialTheme.colorScheme.primary
         )
         ComposeCalendar(
-            animatedBody = false,
             modifier = Modifier.padding(16.dp),
-            events = listOf(
-                CalendarEvent(
-                    title = "Event 17",
-                    date = LocalDate(2025, 5, 16),
-                    description = "Description 17",
-                    icon = Icons.Default.Add
-                ),
-                CalendarEvent(
-                    title = "Event 13",
-                    date = LocalDate(2025, 5, 16),
-                    description = "Description 13",
-                    icon = Icons.Default.Star
-                ),
-                CalendarEvent(
-                    title = "Event 1",
-                    date = Clock.System.now()
-                        .toLocalDateTime(TimeZone.currentSystemDefault()).date,
-                    description = "Description 1",
-                    icon = Icons.Default.Star
-                ),
-                CalendarEvent(
-                    date = Clock.System.now()
-                        .toLocalDateTime(TimeZone.currentSystemDefault()).date.plus(
-                            DatePeriod(
-                                years = 0,
-                                months = 0,
-                                days = 4
-                            )
-                        )
-                ),
-                CalendarEvent(
-                    date = Clock.System.now()
-                        .toLocalDateTime(TimeZone.currentSystemDefault()).date.plus(
-                            DatePeriod(
-                                years = 0,
-                                months = 0,
-                                days = 8
-                            )
-                        ),
-                )
-            ),
+            events = getListOfEvents(),
             calendarColors = calendarColors(
                 eventBackgroundColor = MaterialTheme.colorScheme.surfaceContainerLow,
                 eventContentColor = MaterialTheme.colorScheme.onSurface,
@@ -105,10 +60,46 @@ fun Calendar() {
                 println(date.toString())
                 println(event.toString())
             },
+            isContentClickable = false,
             onPreviousMonthClick = { println("Prev") },
             onNextMonthClick = { println("Next") }
         )
     }
+}
+
+private fun getListOfEvents() = listOf(
+    CalendarEvent(
+        data = MyData("Event 1"),
+        date = java.time.LocalDate.now().plusDays(1),
+        indicatorContent = { IndicatorContent() }
+    ),
+    CalendarEvent(
+        data = MyData("Event 2"),
+        date = java.time.LocalDate.now().plusDays(1),
+        indicatorContent = { IndicatorContent(Color.Red) }
+    ),
+    CalendarEvent(
+        data = MyData("Event 3"),
+        date = java.time.LocalDate.now().plusDays(1),
+        indicatorContent = { IndicatorContent() }
+    ),
+    CalendarEvent(
+        data = MyData("Event 4"),
+        date = java.time.LocalDate.now().plusDays(1),
+        indicatorContent = { IndicatorContent() }
+    ),
+    CalendarEvent(
+        data = MyData("Event 4"),
+        date = java.time.LocalDate.now().plusDays(5),
+        indicatorContent = { IndicatorContent() }
+    ),
+)
+
+data class MyData(val name: String)
+
+@Composable
+fun IndicatorContent(color: Color = Color.Black) {
+    Box(Modifier.size(8.dp).clip(CircleShape).background(color))
 }
 
 @Preview(showBackground = true, showSystemUi = true)
