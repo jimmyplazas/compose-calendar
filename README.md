@@ -282,14 +282,14 @@ This project is licensed under the terms of the [Apache License 2.0](./LICENSE).
 
 ## Library source
 
-As you may know, the [https://github.com/jimmyplazas/compose-calendar/tree/main) is
+As you may know, the [library source](https://github.com/jimmyplazas/compose-calendar/tree/main) is
 open-source. This means that you can fork it and do your own modifications, but it has some
 conditions:
 
-When using the [https://github.com/jimmyplazas/compose-calendar/tree/main), anything
+When using the [library source](https://github.com/jimmyplazas/compose-calendar/tree/main), anything
 from it: errors, crashes, issues, etc. including successful builds, must be done completely by
 yourself and under your own risk and responsibility. I **will not** provide any help/support when
-using the [https://github.com/jimmyplazas/compose-calendar/tree/main).
+using the [library source](https://github.com/jimmyplazas/compose-calendar/tree/main).
 
 Finally, be sure your projects comply with
 the [license previously mentioned](https://github.com/jimmyplazas/compose-calendar#license). Otherwise I
