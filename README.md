@@ -9,8 +9,6 @@ interface for displaying calendar events focused on simplicity and material desi
 - **Easy to Use**: Simple integration into your application.
 - **Customizable**: Modify the style and functionality to suit your needs.
 
-![ComposeCalendar](https://github.com/jimmyplazas/compose-calendar/blob/main/img/cover.png)
-
 Made with ❤️ by <a target="_blank" href="https://jimmyplazas.dev">Jimmy Plazas</a>
 
 ## Getting Started
