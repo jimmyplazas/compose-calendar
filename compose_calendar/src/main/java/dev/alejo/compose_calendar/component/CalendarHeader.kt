@@ -26,32 +26,42 @@ import java.time.format.TextStyle
 import java.util.Locale
 
 /**
- * Composable function to display the header of the calendar.
+ * Composable that renders the calendar header section.
  *
- * @param currentDate The current date displayed in the calendar.
- * @param calendarColors The colors used for styling the calendar.
- * @param firstDayOfWeek The first day of the week to display.
- * @param onPreviousMonthClick Callback function invoked when the previous month button is clicked.
- * @param onNextMonthClick Callback function invoked when the next month button is clicked.
+ * Displays the current month and year with navigation controls, and shows the days of the week
+ * arranged according to the specified first day of the week. Combines the month navigation
+ * bar and the day-of-week labels in a cohesive header UI.
  *
+ * @param currentMonth The [LocalDate] representing the current month and year to display.
+ * @param calendarColors Colors used to style the header components such as background and text.
+ * @param firstDayOfWeek The day of the week that should appear as the first column in the calendar (e.g., Monday or Sunday).
+ * @param isPreviousButtonEnable Flag to enable or disable the button that navigates to the previous month.
+ * @param isNextButtonEnable Flag to enable or disable the button that navigates to the next month.
+ * @param onPreviousMonthClick Lambda invoked when the previous month navigation button is clicked.
+ * @param onNextMonthClick Lambda invoked when the next month navigation button is clicked.
  */
+
 @Composable
 fun CalendarHeader(
-    currentDate: LocalDate,
+    currentMonth: LocalDate,
     calendarColors: CalendarColors,
     firstDayOfWeek: DayOfWeek,
+    isPreviousButtonEnable: Boolean,
+    isNextButtonEnable: Boolean,
     onPreviousMonthClick: () -> Unit,
     onNextMonthClick: () -> Unit
 ) {
     val daysOfWeek = (0..6).map { index ->
         DayOfWeek.of(((firstDayOfWeek.value - 1 + index) % 7) + 1)
     }
-    val monthName = currentDate.month.getDisplayName(TextStyle.FULL, Locale.getDefault())
-    val year = currentDate.year
+    val monthName = currentMonth.month.getDisplayName(TextStyle.FULL, Locale.getDefault())
+    val year = currentMonth.year
 
     MonthAndNavigation(
         monthName = monthName,
         year = year,
+        isPreviousButtonEnable = isPreviousButtonEnable,
+        isNextButtonEnable = isNextButtonEnable,
         calendarColors = calendarColors,
         onPreviousMonthClick = onPreviousMonthClick,
         onNextMonthClick = onNextMonthClick
@@ -60,19 +70,27 @@ fun CalendarHeader(
 }
 
 /**
- * Composable function to display the month and year, along with navigation buttons.
+ * Composable that displays the current month and year with navigation controls.
  *
- * @param monthName The name of the month to display.
- * @param year The year to display.
- * @param calendarColors The colors used for styling the calendar.
- * @param onPreviousMonthClick Callback function invoked when the previous month button is clicked.
- * @param onNextMonthClick Callback function invoked when the next month button is clicked.
+ * Shows the month name and year in a styled header with buttons to navigate to the
+ * previous and next months. The navigation buttons can be enabled or disabled based
+ * on availability. The entire header is styled with provided colors and shapes.
  *
+ * @param monthName The localized name of the current month to display (e.g., "May").
+ * @param year The year number to display alongside the month.
+ * @param isPreviousButtonEnable Boolean flag to enable or disable the "previous month" button.
+ * @param isNextButtonEnable Boolean flag to enable or disable the "next month" button.
+ * @param calendarColors Colors used to style the header background, text, and buttons.
+ * @param onPreviousMonthClick Lambda invoked when the previous month button is clicked.
+ * @param onNextMonthClick Lambda invoked when the next month button is clicked.
  */
+
 @Composable
 fun MonthAndNavigation(
     monthName: String,
     year: Int,
+    isPreviousButtonEnable: Boolean,
+    isNextButtonEnable: Boolean,
     calendarColors: CalendarColors,
     onPreviousMonthClick: () -> Unit,
     onNextMonthClick: () -> Unit
@@ -98,34 +116,36 @@ fun MonthAndNavigation(
                 modifier = Modifier.weight(1f),
                 text = "$monthName $year".replaceFirstChar { it.uppercaseChar() },
                 color = calendarColors.headerContentColor,
+                style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Bold
             )
             NavigationButton(
-                onClick = {
-                    onPreviousMonthClick()
-                },
+                onClick = onPreviousMonthClick,
                 icon = Icons.Default.ArrowBackIosNew,
-                backgroundColor = calendarColors.navigationBackgroundColor,
-                tintColor = calendarColors.navigationContentColor
+                enabled = isPreviousButtonEnable,
+                calendarColors = calendarColors
             )
             NavigationButton(
-                onClick = {
-                    onNextMonthClick()
-                },
+                onClick = onNextMonthClick,
                 icon = Icons.Default.ArrowForwardIos,
-                backgroundColor = calendarColors.navigationBackgroundColor,
-                tintColor = calendarColors.navigationContentColor
+                enabled = isNextButtonEnable,
+                calendarColors = calendarColors
             )
         }
     }
 }
 
 /**
- * Composable function to display the header for the days of the week.
+ * Composable that renders the header row displaying the days of the week.
  *
- * @param daysOfWeek The list of days of the week to display.
- * @param calendarColors The colors used for styling the calendar.
+ * Each day of the week is shown using its short localized name (e.g., Mon, Tue),
+ * with the first character capitalized. The days are evenly distributed horizontally
+ * across the available width.
+ *
+ * @param daysOfWeek A list of [DayOfWeek] representing the sequence of days to display.
+ * @param calendarColors The set of colors to apply for styling the header text.
  */
+
 @Composable
 fun DayOfWeekHeader(daysOfWeek: List<DayOfWeek>, calendarColors: CalendarColors) {
     Row(
@@ -137,7 +157,9 @@ fun DayOfWeekHeader(daysOfWeek: List<DayOfWeek>, calendarColors: CalendarColors)
                 modifier = Modifier
                     .weight(1f)
                     .wrapContentWidth(Alignment.CenterHorizontally),
-                text = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault()),
+                text = dayOfWeek.getDisplayName(TextStyle.SHORT, Locale.getDefault())
+                    .replaceFirstChar { it.uppercaseChar() },
+                style = MaterialTheme.typography.bodyMedium,
                 color = calendarColors.headerContentColor,
                 fontWeight = FontWeight.Bold,
                 textAlign = TextAlign.Center
