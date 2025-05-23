@@ -9,6 +9,8 @@ interface for displaying calendar events focused on simplicity and material desi
 - **Easy to Use**: Simple integration into your application.
 - **Customizable**: Modify the style and functionality to suit your needs.
 
+![ComposeCalendar](https://github.com/jimmyplazas/compose-calendar/blob/main/img/cover.png)
+
 Made with ❤️ by <a target="_blank" href="https://jimmyplazas.dev">Jimmy Plazas</a>
 
 ## Getting Started
@@ -71,27 +73,28 @@ implementation(libs.compose.calendar)
 ```
 
 Replace the `{latest_version}`
-with.  [![GitHub Release](https://img.shields.io/github/v/release/jimmyplazas/compose-calendar?label=ComposeCalendar&sort=semver)](https://github.com/jimmyplazas/compose-calendar/releases/latest)
+with [![GitHub Release](https://img.shields.io/github/v/release/jimmyplazas/compose-calendar?label=ComposeCalendar&sort=semver)](https://github.com/jimmyplazas/compose-calendar/releases/latest)
 
 ## Documentation
 
-**SimpleComposeCalendar**
+### SimpleComposeCalendar
 
-SimpleComposeCalendar is a lightweight and easy-to-use Jetpack Compose calendar component that 
-displays a monthly calendar view with simple event indicators. It supports customizable 
-colors, navigation between months, and handles day clicks with associated events. This component 
-is designed for straightforward integration when you need to display events on specific dates 
-and allow user interaction with the calendar days.
+The `SimpleComposeCalendar` is a lightweight Jetpack Compose calendar for monthly views with event
+indicators. It offers customizable colors, month navigation, and day click handling with events,
+designed for easy integration.
 
 ```
 @Composable
 fun SimpleComposeCalendar(
     modifier: Modifier = Modifier,
     initDate: LocalDate = LocalDate.now().withDayOfMonth(1),
-    events: List<SimpleCalendarEvent> = emptyList(),
-    onDayClick: (date: LocalDate, events: List<SimpleCalendarEvent>) -> Unit = { _, _ -> },
+    events: List<LocalDate> = emptyList(),
+    onDayClick: (date: LocalDate, events: List<LocalDate>) -> Unit = { _, _ -> },
     calendarColors: CalendarColors = CalendarDefaults.calendarColors(),
     firstDayOfWeek: DayOfWeek = WeekFields.of(Locale.getDefault()).firstDayOfWeek,
+    eventIndicator: (@Composable (event: LocalDate, position: Int, count: Int) -> Unit)?,
+    maxIndicators: CalendarDefaults.IndicatorLimit = CalendarDefaults.IndicatorLimit.Four,
+    indicatorLayout: CalendarDefaults.IndicatorLayout = CalendarDefaults.IndicatorLayout.Row,
     isContentClickable: Boolean = true,
     onPreviousMonthClick: () -> Unit = {},
     onNextMonthClick: () -> Unit = {}
@@ -104,20 +107,31 @@ fun SimpleComposeCalendar(
  calendar component.
 - `initDate`: Defines the initial date displayed in the calendar. By default, it shows the 
  first day of the current month. You can specify any date from which the calendar should start.
-- `events`: A list of `SimpleCalendarEvent` objects representing the events to display on 
+- `events`: A list of `LocalDate` objects representing the events to display on
  the calendar. If no events are provided, the calendar initializes with an empty list.
 - `onDayClick`: A callback function triggered when a day is clicked. It receives the 
- clicked `LocalDate` and a list of `SimpleCalendarEvent`s for that date. The list will be 
+ clicked `LocalDate` and a list of `LocalDate`s for that date. The list will be
  empty if there are no events on the selected day.
 - `calendarColors`: Allows customization of the calendar’s color scheme. If not specified, a default 
 color set is applied.
 - `firstDayOfWeek`: Specifies the first day of the week (e.g., `DayOfWeek.MONDAY`). By default, it
 uses the locale’s first day.
+- `eventIndicator`: An optional composable lambda that renders a custom visual indicator for each
+  event. It receives the event `LocalDate`, its position in the list, and the total count of
+  indicators for the day.
+- `maxIndicators`: The maximum number of indicators to display per day. Defaults to
+  `CalendarDefaults.IndicatorLimit.Four`.
+- `indicatorLayout`: Defines how indicators are laid out (e.g., `Row` or `Column`). Defaults to
+  `CalendarDefaults.IndicatorLayout.Row`.
 - `isContentClickable`: Determines whether the calendar days are clickable. Defaults to `true`.
 - `onPreviousMonthClick`: Callback invoked when navigating to the previous month.
 - `onNextMonthClick`: Callback invoked when navigating to the next month.
 
-**ComposeCalendar**
+### ComposeCalendar
+
+The `ComposeCalendar` is a versatile Jetpack Compose calendar for monthly views with generic event
+type support. It offers customizable colors, month navigation, and day click handling for easy integration. Ideal for complex
+complex event data handling.
 
 ```
 @Composable
@@ -128,6 +142,9 @@ fun <T> ComposeCalendar(
     onDayClick: (date: LocalDate, events: List<CalendarEvent<T>>) -> Unit = { _, _ -> },
     calendarColors: CalendarColors = CalendarDefaults.calendarColors(),
     firstDayOfWeek: DayOfWeek = WeekFields.of(Locale.getDefault()).firstDayOfWeek,
+    eventIndicator: (@Composable (event: CalendarEvent<T>, position: Int, count: Int) -> Unit)?,
+    maxIndicators: CalendarDefaults.IndicatorLimit = CalendarDefaults.IndicatorLimit.Four,
+    indicatorLayout: CalendarDefaults.IndicatorLayout = CalendarDefaults.IndicatorLayout.Row,
     isContentClickable: Boolean = true,
     onPreviousMonthClick: () -> Unit = {},
     onNextMonthClick: () -> Unit = {}
@@ -136,52 +153,39 @@ fun <T> ComposeCalendar(
 
 **Parameters**
 
-- `modifier`: An optional parameter that allows you to apply styling or positioning to the calendar
-  component.
-- `LocalDate`: This parameter defines the initial date displayed in the calendar. By default, it
-  sets the calendar to show the current date. You can specify any date you want the calendar to
-  start from.
-- `events`: A list of CalendarEvent objects that represent the events to be displayed in the
-  calendar. If no events are provided, the calendar will initialize with an empty list.
-- `onDayClick`: A callback function that is triggered when a day is clicked in the calendar.
-  The function receives a `LocalDate` representing the clicked day and a list of `CalendarEvents`
-  associated with that date. The list will be empty if there are no events for the selected day.
-- `calendarColors`: This allows you to customize the color scheme of the calendar. If not specified,
-  it will use a default color set defined by the calendarColors() function.
-- `firstDayOfWeek`: The first day of the week, e.g., `DayOfWeek.MONDAY`.
-- `isContentClickable`: Whether the content area (days) of the calendar is clickable.
-- `onPreviousMonthClick`: Callback invoked when the user navigates to the previous month.
-- `onNextMonthClick:` Callback invoked when the user navigates to the next month.
+- `modifier`: An optional parameter that allows you to apply styling or positioning to the 
+ calendar component.
+- `initDate`: Defines the initial date displayed in the calendar. By default, it shows the 
+ first day of the current month. You can specify any date from which the calendar should start.
+- `events`: A list of `CalendarEvent` objects representing the events to display on
+ the calendar. If no events are provided, the calendar initializes with an empty list.
+- `onDayClick`: A callback function triggered when a day is clicked. It receives the 
+ clicked `LocalDate` and a list of `CalendarEvent`s for that date. The list will be
+ empty if there are no events on the selected day.
+- `calendarColors`: Allows customization of the calendar’s color scheme. If not specified, a default 
+color set is applied.
+- `firstDayOfWeek`: Specifies the first day of the week (e.g., `DayOfWeek.MONDAY`). By default, it
+uses the locale’s first day.
+- `eventIndicator`: An optional composable lambda that renders a custom visual indicator for each
+  event. It receives the event `CalendarEvent`, its position in the list, and the total count of
+  indicators for the day.
+- `maxIndicators`: The maximum number of indicators to display per day. Defaults to
+  `CalendarDefaults.IndicatorLimit.Four`.
+- `indicatorLayout`: Defines how indicators are laid out (e.g., `Row` or `Column`). Defaults to
+  `CalendarDefaults.IndicatorLayout.Row`.
+- `isContentClickable`: Determines whether the calendar days are clickable. Defaults to `true`.
+- `onPreviousMonthClick`: Callback invoked when navigating to the previous month.
+- `onNextMonthClick`: Callback invoked when navigating to the next month.
 
-**SimpleCalendarEvent**
 
-`SimpleCalendarEvent` represents a basic event to be displayed on the calendar for a specific 
-date. It includes an optional composable indicator that can be used to visually mark the 
-event on the calendar day.
-
-```
-data class SimpleCalendarEvent(
-    val date: LocalDate,
-    val indicator: (@Composable () -> Unit)? = null
-)
-```
-
-**Parameters**
-- `date`: A `LocalDate` representing the date of the event.
-- `indicator`: An optional composable lambda that renders a visual indicator for the event 
-on the calendar day. If `null`, no indicator is shown.
-
-**CalendarEvents**
-
-The `CalendarEvent` class is a generic class that represents an event in the calendar.
-Each event includes the date, an optional generic type that represents the data related with the
-event and a composable function that will be used to show the indicator in the calendar.
+### CalendarEvents
+The `CalendarEvent` class represents a calendar event.
+It holds generic data and the event date.
 
 ```
 data class CalendarEvent<T>(
     val data: T? = null,
-    val date: LocalDate,
-    val indicatorContent: (@Composable () -> Unit)? = null
+    val date: LocalDate
 )
 ```
 
@@ -190,56 +194,58 @@ data class CalendarEvent<T>(
 - `data`: Optional generic data of type `T` associated with the event. It can hold any relevant
  information related to the event.
 - `date`: A `LocalDate` indicating the date on which the event occurs.
-- `indicatorContent`: An optional composable lambda that renders a custom visual indicator for
- the event on the calendar day. If `null`, no indicator will be displayed.
 
 
 ## Example
 
 ```
 ComposeCalendar(
-    events = getListOfEvents(),
-    calendarColors = calendarColors(
-        eventBackgroundColor = MaterialTheme.colorScheme.surfaceContainerLow,
-        eventContentColor = MaterialTheme.colorScheme.onSurface
-    ),
+    events = state.events,
     onDayClick = { date, events -> 
         /* Do Something */ 
     },
-    onPreviousMonthClick = { 
-        /* Do Something */
+    eventIndicator = { event, position, count ->
+        if (position < 2) {
+            IndicatorContent(Modifier.fillMaxWidth().height(8.dp))
+        }
+        if (position == 2) {
+            Text(
+                text = "+${count - 2}",
+                fontWeight = FontWeight.Bold,
+                fontSize = 10.sp
+            )
+        }
     },
-    onNextMonthClick = {  
-        /* Do Something */
+    maxIndicators = CalendarDefaults.IndicatorLimit.Three,
+    indicatorLayout = CalendarDefaults.IndicatorLayout.Column,
+    isContentClickable = false,
+    onPreviousMonthClick = { 
+        /* Do Something */ 
+    },
+    onNextMonthClick = { 
+        /* Do Something */  
     }
 )
+
+@Composable
+fun IndicatorContent(modifier: Modifier = Modifier, color: Color = Color.Black) {
+    Box(modifier.clip(CircleShape).background(color))
+}
 
 private fun getListOfEvents() = listOf(
     CalendarEvent(
         data = MyData("Event 1"),
-        date = java.time.LocalDate.now().plusDays(1),
-        indicatorContent = { IndicatorContent() }
+        date = java.time.LocalDate.now().plusDays(1)
     ),
     CalendarEvent(
         data = MyData("Event 2"),
-        date = java.time.LocalDate.now().plusDays(1),
-        indicatorContent = { IndicatorContent(Color.Red) }
+        date = java.time.LocalDate.now().plusDays(1)
     ),
     CalendarEvent(
         data = MyData("Event 3"),
-        date = java.time.LocalDate.now().plusDays(1),
-        indicatorContent = { IndicatorContent() }
+        date = java.time.LocalDate.now().plusDays(1)
     ),
-    CalendarEvent(
-        data = MyData("Event 4"),
-        date = java.time.LocalDate.now().plusDays(1),
-        indicatorContent = { IndicatorContent() }
-    ),
-    CalendarEvent(
-        data = MyData("Event 4"),
-        date = java.time.LocalDate.now().plusDays(5),
-        indicatorContent = { IndicatorContent() }
-    ),
+    ...
 )
 ```
 
@@ -276,15 +282,15 @@ This project is licensed under the terms of the [Apache License 2.0](./LICENSE).
 
 ## Library source
 
-As you may know, the [library source](https://github.com/jahirfiquitiva/Blueprint/tree/master) is
+As you may know, the [https://github.com/jimmyplazas/compose-calendar/tree/main) is
 open-source. This means that you can fork it and do your own modifications, but it has some
 conditions:
 
-When using the [library source](https://github.com/jahirfiquitiva/Blueprint/tree/master), anything
+When using the [https://github.com/jimmyplazas/compose-calendar/tree/main), anything
 from it: errors, crashes, issues, etc. including successful builds, must be done completely by
 yourself and under your own risk and responsibility. I **will not** provide any help/support when
-using the [library source](https://github.com/jahirfiquitiva/Blueprint/tree/master).
+using the [https://github.com/jimmyplazas/compose-calendar/tree/main).
 
 Finally, be sure your projects comply with
-the [license previously mentioned](https://github.com/jahirfiquitiva/Blueprint#license). Otherwise I
+the [license previously mentioned](https://github.com/jimmyplazas/compose-calendar#license). Otherwise I
 will be taking the required legal actions. I hope you understand.
