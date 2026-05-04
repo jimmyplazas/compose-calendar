@@ -95,7 +95,8 @@ fun SimpleComposeCalendar(
     indicatorLayout: CalendarDefaults.IndicatorLayout = CalendarDefaults.IndicatorLayout.Row,
     isContentClickable: Boolean = true,
     onPreviousMonthClick: () -> Unit = {},
-    onNextMonthClick: () -> Unit = {}
+    onNextMonthClick: () -> Unit = {},
+    monthNameFormat: TextStyle = TextStyle.FULL
 )
 ```
 
@@ -124,6 +125,7 @@ uses the locale’s first day.
 - `isContentClickable`: Determines whether the calendar days are clickable. Defaults to `true`.
 - `onPreviousMonthClick`: Callback invoked when navigating to the previous month.
 - `onNextMonthClick`: Callback invoked when navigating to the next month.
+- `monthNameFormat`: The `java.time.format.TextStyle` used to determine the month name display format. Defaults to `TextStyle.FULL`.
 
 ### ComposeCalendar
 
@@ -145,7 +147,8 @@ fun <T> ComposeCalendar(
     indicatorLayout: CalendarDefaults.IndicatorLayout = CalendarDefaults.IndicatorLayout.Row,
     isContentClickable: Boolean = true,
     onPreviousMonthClick: () -> Unit = {},
-    onNextMonthClick: () -> Unit = {}
+    onNextMonthClick: () -> Unit = {},
+    monthNameFormat: TextStyle = TextStyle.FULL
 )
 ```
 
@@ -174,6 +177,7 @@ uses the locale’s first day.
 - `isContentClickable`: Determines whether the calendar days are clickable. Defaults to `true`.
 - `onPreviousMonthClick`: Callback invoked when navigating to the previous month.
 - `onNextMonthClick`: Callback invoked when navigating to the next month.
+- `monthNameFormat`: The `java.time.format.TextStyle` used to determine the month name display format. Defaults to `TextStyle.FULL`.
 
 
 ### CalendarEvents

@@ -32,6 +32,7 @@ import dev.alejo.compose_calendar.SimpleComposeCalendar
 import dev.alejo.compose_calendar.util.CalendarDefaults
 import dev.alejo.composecalendar.ui.theme.ComposeCalendarTheme
 import java.time.LocalDate
+import java.time.format.TextStyle
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,7 +88,8 @@ fun Calendar(modifier: Modifier = Modifier, state: CalendarState) {
             indicatorLayout = CalendarDefaults.IndicatorLayout.Column,
             isContentClickable = false,
             onPreviousMonthClick = { println("Prev") },
-            onNextMonthClick = { println("Next") }
+            onNextMonthClick = { println("Next") },
+            monthNameFormat = TextStyle.FULL_STANDALONE
         )
     }
 }
