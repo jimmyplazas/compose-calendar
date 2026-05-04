@@ -39,6 +39,7 @@ import java.util.Locale
  * @param isNextButtonEnable Flag to enable or disable the button that navigates to the next month.
  * @param onPreviousMonthClick Lambda invoked when the previous month navigation button is clicked.
  * @param onNextMonthClick Lambda invoked when the next month navigation button is clicked.
+ * @param monthNameFormat [TextStyle] to determine the month name display format.
  */
 
 @Composable
@@ -49,12 +50,13 @@ fun CalendarHeader(
     isPreviousButtonEnable: Boolean,
     isNextButtonEnable: Boolean,
     onPreviousMonthClick: () -> Unit,
-    onNextMonthClick: () -> Unit
+    onNextMonthClick: () -> Unit,
+    monthNameFormat: TextStyle
 ) {
     val daysOfWeek = (0..6).map { index ->
         DayOfWeek.of(((firstDayOfWeek.value - 1 + index) % 7) + 1)
     }
-    val monthName = currentMonth.month.getDisplayName(TextStyle.FULL, Locale.getDefault())
+    val monthName = currentMonth.month.getDisplayName(monthNameFormat, Locale.getDefault())
     val year = currentMonth.year
 
     MonthAndNavigation(

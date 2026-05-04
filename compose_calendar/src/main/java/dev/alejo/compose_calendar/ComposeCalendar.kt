@@ -22,6 +22,7 @@ import dev.alejo.compose_calendar.util.buildCalendarCache
 import java.time.DayOfWeek
 import java.time.LocalDate
 import java.time.YearMonth
+import java.time.format.TextStyle
 import java.time.temporal.WeekFields
 import java.util.Locale
 
@@ -45,6 +46,7 @@ import java.util.Locale
  * @param isContentClickable Flag that enables or disables clicking on individual day cells.
  * @param onPreviousMonthClick Lambda invoked when the user navigates to the previous month.
  * @param onNextMonthClick Lambda invoked when the user navigates to the next month.
+ * @param monthNameFormat [TextStyle] to determine the month name display format.
  */
 
 @Composable
@@ -60,7 +62,8 @@ fun <T> ComposeCalendar(
     indicatorLayout: CalendarDefaults.IndicatorLayout = CalendarDefaults.IndicatorLayout.Row,
     isContentClickable: Boolean = true,
     onPreviousMonthClick: () -> Unit = {},
-    onNextMonthClick: () -> Unit = {}
+    onNextMonthClick: () -> Unit = {},
+    monthNameFormat: TextStyle = TextStyle.FULL
 ) {
     val calendarCache = remember(firstDayOfWeek) {
         mutableStateOf(buildCalendarCache(firstDayOfWeek))
@@ -119,7 +122,8 @@ fun <T> ComposeCalendar(
                     onNextMonthClick()
                     currentMonth = currentMonth.plusMonths(1)
                 }
-            }
+            },
+            monthNameFormat = monthNameFormat
         )
         CalendarBody(
             events = currentMonthEvents,
@@ -153,6 +157,7 @@ fun <T> ComposeCalendar(
  * @param isContentClickable Flag that enables or disables clicking on individual day cells.
  * @param onPreviousMonthClick Lambda invoked when the user navigates to the previous month.
  * @param onNextMonthClick Lambda invoked when the user navigates to the next month.
+ * @param monthNameFormat [TextStyle] to determine the month name display format.
  */
 
 @Composable
@@ -168,7 +173,8 @@ fun SimpleComposeCalendar(
     indicatorLayout: CalendarDefaults.IndicatorLayout = CalendarDefaults.IndicatorLayout.Row,
     isContentClickable: Boolean = true,
     onPreviousMonthClick: () -> Unit = {},
-    onNextMonthClick: () -> Unit = {}
+    onNextMonthClick: () -> Unit = {},
+    monthNameFormat: TextStyle = TextStyle.FULL
 ) {
     ComposeCalendar<Unit>(
         modifier = modifier,
@@ -184,6 +190,7 @@ fun SimpleComposeCalendar(
         maxIndicators = maxIndicators,
         isContentClickable = isContentClickable,
         onPreviousMonthClick = onPreviousMonthClick,
-        onNextMonthClick = onNextMonthClick
+        onNextMonthClick = onNextMonthClick,
+        monthNameFormat = monthNameFormat
     )
 }
