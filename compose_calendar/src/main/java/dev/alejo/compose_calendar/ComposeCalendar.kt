@@ -65,7 +65,7 @@ fun <T> ComposeCalendar(
     val calendarCache = remember(firstDayOfWeek) {
         mutableStateOf(buildCalendarCache(firstDayOfWeek))
     }
-    var currentMonth by rememberSaveable { mutableStateOf(initDate) }
+    var currentMonth by remember { mutableStateOf(initDate) }
     val currentYearMonth = YearMonth.from(currentMonth)
 
     val firstYearMonth = remember { calendarCache.value.keys.first() }
