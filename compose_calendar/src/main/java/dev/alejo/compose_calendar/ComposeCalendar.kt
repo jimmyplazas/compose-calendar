@@ -59,13 +59,13 @@ fun <T> ComposeCalendar(
     maxIndicators: CalendarDefaults.IndicatorLimit = CalendarDefaults.IndicatorLimit.Four,
     indicatorLayout: CalendarDefaults.IndicatorLayout = CalendarDefaults.IndicatorLayout.Row,
     isContentClickable: Boolean = true,
-    onPreviousMonthClick: () -> Unit = {},
-    onNextMonthClick: () -> Unit = {}
+    onPreviousMonthClick: (LocalDate) -> Unit = {},
+    onNextMonthClick: (LocalDate) -> Unit = {}
 ) {
     val calendarCache = remember(firstDayOfWeek) {
         mutableStateOf(buildCalendarCache(firstDayOfWeek))
     }
-    var currentMonth by rememberSaveable { mutableStateOf(initDate) }
+    var currentMonth by remember { mutableStateOf(initDate) }
     val currentYearMonth = YearMonth.from(currentMonth)
 
     val firstYearMonth = remember { calendarCache.value.keys.first() }
@@ -110,16 +110,16 @@ fun <T> ComposeCalendar(
             isNextButtonEnable = isNextButtonEnable,
             onPreviousMonthClick = {
                 if (isPreviousButtonEnable) {
-                    onPreviousMonthClick()
                     currentMonth = currentMonth.minusMonths(1)
+                    onPreviousMonthClick(currentMonth)
                 }
             },
             onNextMonthClick = {
                 if (isNextButtonEnable) {
-                    onNextMonthClick()
                     currentMonth = currentMonth.plusMonths(1)
+                    onNextMonthClick(currentMonth)
                 }
-            }
+            },
         )
         CalendarBody(
             events = currentMonthEvents,
@@ -167,8 +167,8 @@ fun SimpleComposeCalendar(
     maxIndicators: CalendarDefaults.IndicatorLimit = CalendarDefaults.IndicatorLimit.Four,
     indicatorLayout: CalendarDefaults.IndicatorLayout = CalendarDefaults.IndicatorLayout.Row,
     isContentClickable: Boolean = true,
-    onPreviousMonthClick: () -> Unit = {},
-    onNextMonthClick: () -> Unit = {}
+    onPreviousMonthClick: (LocalDate) -> Unit = {},
+    onNextMonthClick: (LocalDate) -> Unit = {}
 ) {
     ComposeCalendar<Unit>(
         modifier = modifier,
