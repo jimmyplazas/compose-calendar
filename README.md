@@ -19,7 +19,7 @@ To integrate the Compose Calendar library into your Android app, follow the next
 
 1. Add your MavenCentral and Jitpack to you `settings.gradle.kts` file
 
-```
+```kotlin
 dependencyResolutionManagement {
     repositories {
         google {
@@ -56,7 +56,7 @@ dependencyResolutionManagement {
 ```
 2. Add the dependency in your project `libs.versions.toml` file
 
-```
+```toml
 [versions]
 composeCalendar = "{latest_version}"
 
@@ -66,7 +66,7 @@ compose-calendar = { module = "com.github.jimmyplazas:compose-calendar", version
 
 And then add the library to your `build.gradle.kts` file
 
-```
+```kotlin
 implementation(libs.compose.calendar)
 ```
 
@@ -81,7 +81,7 @@ The `SimpleComposeCalendar` is a lightweight Jetpack Compose calendar for monthl
 indicators. It offers customizable colors, month navigation, and day click handling with events,
 designed for easy integration.
 
-```
+```kotlin
 @Composable
 fun SimpleComposeCalendar(
     modifier: Modifier = Modifier,
@@ -131,7 +131,7 @@ The `ComposeCalendar` is a versatile Jetpack Compose calendar for monthly views 
 type support. It offers customizable colors, month navigation, and day click handling for easy integration. Ideal for complex
 complex event data handling.
 
-```
+```kotlin
 @Composable
 fun <T> ComposeCalendar(
     modifier: Modifier = Modifier,
@@ -180,7 +180,7 @@ uses the locale’s first day.
 The `CalendarEvent` class represents a calendar event.
 It holds generic data and the event date.
 
-```
+```kotlin
 data class CalendarEvent<T>(
     val data: T? = null,
     val date: LocalDate
@@ -196,7 +196,7 @@ data class CalendarEvent<T>(
 
 ## Example
 
-```
+```kotlin
 ComposeCalendar(
     events = state.events,
     onDayClick = { date, events -> 
